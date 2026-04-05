@@ -15,6 +15,14 @@ The goal is not to dump vague best practices into repo docs. The goal is to scan
 
 Default behavior: **produce candidates first, then wait for confirmation before writing corpus files.**
 
+## Output Language
+
+Follow the user's language when writing the bootstrap report and candidate content.
+- If the user is writing in Chinese, write the report in Chinese.
+- If the user is writing in English, write the report in English.
+- Keep IDs, file paths, and code blocks unchanged.
+- If the repository already has a dominant documentation language, match the user's language first and only keep stable repo terms in their existing form when needed for clarity.
+
 ## When to Use
 
 Use this when:

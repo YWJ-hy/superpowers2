@@ -32,4 +32,9 @@ assert_contains "$output" "candidate\|report\|review\|confirm" "Mentions candida
 assert_contains "$output" "No\.\|do not write directly\|wait for confirmation\|only then write\|only then update" "Requires confirmation before writes" || exit 1
 
 echo ""
+echo "Test 5: Output language follows user..."
+output=$(run_claude "如果用户用中文请求 bootstrapping-project-knowledge，这个 skill 生成的 bootstrap report 应该用什么语言？请用中文简短回答。" 90)
+assert_contains "$output" "中文\|跟随用户语言\|用中文" "Follows Chinese user language" || exit 1
+
+echo ""
 echo "=== All bootstrapping-project-knowledge skill tests passed ==="
