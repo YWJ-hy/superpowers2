@@ -22,5 +22,8 @@ Task tool (superpowers:code-reviewer):
 - Are units decomposed so they can be understood and tested independently?
 - Is the implementation following the file structure from the plan?
 - Did this implementation create new files that are already large, or significantly grow existing files? (Don't flag pre-existing file sizes — focus on what this change contributed.)
+- Did the change satisfy the referenced standards in a clean way rather than a mechanical way?
+- Did it add abstraction, indirection, or file sprawl that conflicts with the stated standards or project-note guidance?
+- Did it technically satisfy the task while making ownership boundaries less clear?
 
 **Code reviewer returns:** Strengths, Issues (Critical/Important/Minor), Assessment

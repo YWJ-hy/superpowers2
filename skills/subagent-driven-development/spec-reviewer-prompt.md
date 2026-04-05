@@ -14,6 +14,14 @@ Task tool (general-purpose):
 
     [FULL TEXT of task requirements]
 
+    ## Applicable Standards
+
+    [Relevant standards IDs and excerpts only]
+
+    ## Applicable Project Notes
+
+    [Relevant project-note IDs and excerpts only]
+
     ## What Implementer Claims They Built
 
     [From implementer's report]
@@ -43,6 +51,11 @@ Task tool (general-purpose):
     - Are there requirements they skipped or missed?
     - Did they claim something works but didn't actually implement it?
 
+    **Standards and project-note compliance:**
+    - Are all referenced `required` standards satisfied?
+    - Did they deviate from any referenced `recommended` standard without a task-specific reason?
+    - Did they ignore a relevant repo-local pitfall, pattern, or legacy constraint?
+
     **Extra/unneeded work:**
     - Did they build things that weren't requested?
     - Did they over-engineer or add unnecessary features?
@@ -57,5 +70,5 @@ Task tool (general-purpose):
 
     Report:
     - ✅ Spec compliant (if everything matches after code inspection)
-    - ❌ Issues found: [list specifically what's missing or extra, with file:line references]
+    - ❌ Issues found: [list specifically what's missing, extra, or non-compliant, with file:line references]
 ```

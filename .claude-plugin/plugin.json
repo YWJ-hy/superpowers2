@@ -1,20 +1,19 @@
 {
-  "name": "superpowers",
-  "description": "Core skills library for Claude Code: TDD, debugging, collaboration patterns, and proven techniques",
-  "version": "5.0.7",
+  "name": "superpower2-compound-plugin",
+  "description": "Company workflow framework for Claude Code with standards corpora, project playbooks, progressive disclosure, and compound engineering",
+  "version": "0.1.0",
   "author": {
-    "name": "Jesse Vincent",
-    "email": "jesse@fsck.com"
+    "name": "Superpower2 Team"
   },
-  "homepage": "https://github.com/obra/superpowers",
-  "repository": "https://github.com/obra/superpowers",
+  "homepage": "https://github.com/YWJ-hy/superpowers2",
+  "repository": "https://github.com/YWJ-hy/superpowers2",
   "license": "MIT",
   "keywords": [
     "skills",
-    "tdd",
-    "debugging",
-    "collaboration",
-    "best-practices",
+    "compound-engineering",
+    "company-standards",
+    "project-playbook",
+    "progressive-disclosure",
     "workflows"
   ]
 }

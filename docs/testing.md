@@ -35,7 +35,7 @@ cd tests/claude-code
 
 - Must run from the **superpowers plugin directory** (not from temp directories)
 - Claude Code must be installed and available as `claude` command
-- Local dev marketplace must be enabled: `"superpowers@superpowers-dev": true` in `~/.claude/settings.json`
+- Local dev marketplace must be enabled: `"superpower2-compound-plugin@superpower2-compound": true` in `~/.claude/settings.json`
 
 ## Integration Test: subagent-driven-development
 
@@ -44,7 +44,7 @@ cd tests/claude-code
 The integration test verifies the `subagent-driven-development` skill correctly:
 
 1. **Plan Loading**: Reads the plan once at the beginning
-2. **Full Task Text**: Provides complete task descriptions to subagents (doesn't make them read files)
+2. **Task Packets**: Provides complete task descriptions plus relevant standards/project-note excerpts to subagents (doesn't make them read files)
 3. **Self-Review**: Ensures subagents perform self-review before reporting
 4. **Review Order**: Runs spec compliance review before code quality review
 5. **Review Loops**: Uses review loops when issues are found
@@ -59,6 +59,7 @@ The integration test verifies the `subagent-driven-development` skill correctly:
    - Subagents were dispatched (Task tool)
    - TodoWrite was used for tracking
    - Implementation files were created
+   - Task-packet guidance (such as standards/project-note excerpts) was available when relevant
    - Tests pass
    - Git commits show proper workflow
 4. **Token Analysis**: Shows token usage breakdown by subagent
@@ -183,7 +184,7 @@ ls -lt "$SESSION_DIR"/*.jsonl | head -5
 
 **Solutions**:
 1. Ensure you're running FROM the superpowers directory: `cd /path/to/superpowers && tests/...`
-2. Check `~/.claude/settings.json` has `"superpowers@superpowers-dev": true` in `enabledPlugins`
+2. Check `~/.claude/settings.json` has `"superpower2-compound-plugin@superpower2-compound": true` in `enabledPlugins`
 3. Verify skill exists in `skills/` directory
 
 ### Permission Errors
@@ -257,7 +258,8 @@ python3 "$SCRIPT_DIR/analyze-token-usage.py" "$SESSION_FILE"
 
 1. **Always cleanup**: Use trap to cleanup temp directories
 2. **Parse transcripts**: Don't grep user-facing output - parse the `.jsonl` session file
-3. **Grant permissions**: Use `--permission-mode bypassPermissions` and `--add-dir`
+3. **Assert structure, not prose**: Prefer checking that prompts and transcripts contain the expected task-packet fields or skill invocations instead of brittle full-sentence matches
+4. **Grant permissions**: Use `--permission-mode bypassPermissions` and `--add-dir`
 4. **Run from plugin dir**: Skills only load when running from the superpowers directory
 5. **Show token usage**: Always include token analysis for cost visibility
 6. **Test real behavior**: Verify actual files created, tests passing, commits made

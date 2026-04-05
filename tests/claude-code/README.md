@@ -42,6 +42,7 @@ This test suite verifies that skills are loaded correctly and Claude follows the
 
 ### test-helpers.sh
 Common functions for skills testing:
+- `run_with_timeout seconds command...` - Run a command with a cross-platform timeout wrapper
 - `run_claude "prompt" [timeout]` - Run Claude with prompt
 - `assert_contains output pattern name` - Verify pattern exists
 - `assert_not_contains output pattern name` - Verify pattern absent
@@ -125,7 +126,7 @@ Full workflow execution test (~10-30 minutes):
 
 ## Timeout Considerations
 
-- Default timeout: 5 minutes per test
+- Default timeout: 10 minutes per test
 - Claude Code may take time to respond
 - Adjust with `--timeout` if needed
 - Tests should be focused to avoid long runs

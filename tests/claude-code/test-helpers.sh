@@ -1,6 +1,43 @@
 #!/usr/bin/env bash
 # Helper functions for Claude Code skill tests
 
+run_with_timeout() {
+    local timeout_seconds="$1"
+    shift
+
+    if command -v timeout >/dev/null 2>&1; then
+        timeout "$timeout_seconds" "$@"
+        return $?
+    fi
+
+    if command -v gtimeout >/dev/null 2>&1; then
+        gtimeout "$timeout_seconds" "$@"
+        return $?
+    fi
+
+    python3 - "$timeout_seconds" "$@" <<'PY'
+import os
+import signal
+import subprocess
+import sys
+
+seconds = int(sys.argv[1])
+cmd = sys.argv[2:]
+proc = subprocess.Popen(cmd)
+try:
+    proc.wait(timeout=seconds)
+    sys.exit(proc.returncode)
+except subprocess.TimeoutExpired:
+    proc.send_signal(signal.SIGTERM)
+    try:
+        proc.wait(timeout=5)
+    except subprocess.TimeoutExpired:
+        proc.kill()
+        proc.wait()
+    sys.exit(124)
+PY
+}
+
 # Run Claude Code with a prompt and capture output
 # Usage: run_claude "prompt text" [timeout_seconds] [allowed_tools]
 run_claude() {
@@ -10,13 +47,13 @@ run_claude() {
     local output_file=$(mktemp)
 
     # Build command
-    local cmd="claude -p \"$prompt\""
+    local cmd="claude -p \"$prompt\" --allowed-tools=all --permission-mode bypassPermissions"
     if [ -n "$allowed_tools" ]; then
         cmd="$cmd --allowed-tools=$allowed_tools"
     fi
 
     # Run Claude in headless mode with timeout
-    if timeout "$timeout" bash -c "$cmd" > "$output_file" 2>&1; then
+    if run_with_timeout "$timeout" bash -c "$cmd" > "$output_file" 2>&1; then
         cat "$output_file"
         rm -f "$output_file"
         return 0
@@ -192,6 +229,7 @@ EOF
 }
 
 # Export functions for use in tests
+export -f run_with_timeout
 export -f run_claude
 export -f assert_contains
 export -f assert_not_contains

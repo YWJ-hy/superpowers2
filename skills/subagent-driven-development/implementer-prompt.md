@@ -16,6 +16,29 @@ Task tool (general-purpose):
 
     [Scene-setting: where this fits, dependencies, architectural context]
 
+    ## Task Packet
+
+    **Spec sections:**
+    [Relevant spec section IDs and excerpts only]
+
+    **Applicable standards:**
+    [Rule IDs only]
+
+    **Standards excerpts:**
+    [Only the exact standards excerpts relevant to this task]
+
+    **Applicable project notes:**
+    [Project-note IDs only]
+
+    **Project-note excerpts:**
+    [Only the exact project-note excerpts relevant to this task]
+
+    **Constraints / Non-goals:**
+    [Explicit boundaries]
+
+    **Acceptance checks:**
+    [Observable requirements to satisfy]
+
     ## Before You Begin
 
     If you have questions about:
@@ -30,11 +53,14 @@ Task tool (general-purpose):
 
     Once you're clear on requirements:
     1. Implement exactly what the task specifies
-    2. Write tests (following TDD if task says to)
-    3. Verify implementation works
-    4. Commit your work
-    5. Self-review (see below)
-    6. Report back
+    2. Follow all referenced `required` standards
+    3. Treat referenced `recommended` standards as the default unless the task context justifies a deviation
+    4. If a referenced standard or project note seems to conflict with the task, ask before proceeding rather than guessing
+    5. Write tests (following TDD if task says to)
+    6. Verify implementation works
+    7. Commit your work
+    8. Self-review (see below)
+    9. Report back
 
     Work from: [directory]
 
@@ -89,6 +115,8 @@ Task tool (general-purpose):
     - Did I avoid overbuilding (YAGNI)?
     - Did I only build what was requested?
     - Did I follow existing patterns in the codebase?
+    - Did I satisfy the referenced `required` standards?
+    - If I deviated from a `recommended` standard, did I have a real task-specific reason?
 
     **Testing:**
     - Do tests actually verify behavior (not just mock behavior)?

@@ -12,7 +12,7 @@ echo "========================================"
 echo ""
 echo "This test executes a real plan using the skill and verifies:"
 echo "  1. Plan is read once (not per task)"
-echo "  2. Full task text provided to subagents"
+echo "  2. Full task text plus task-packet excerpts are provided to subagents"
 echo "  3. Subagents perform self-review"
 echo "  4. Spec compliance review before code quality"
 echo "  5. Review loops when issues found"
@@ -56,6 +56,21 @@ Create a function that adds two numbers.
 
 **File:** `src/math.js`
 
+**Goal:**
+Create a tiny exported utility that demonstrates packetized task context.
+
+**Applicable Standards:**
+- `FE-TEST-001`
+
+**Standards Excerpts:**
+- `FE-TEST-001`: Tests should assert user-visible behavior rather than internal implementation details.
+
+**Applicable Project Notes:**
+- `PRJ-PAT-001`
+
+**Project Note Excerpts:**
+- `PRJ-PAT-001`: Put reusable behavior at the owning boundary rather than scattering patches around callers.
+
 **Requirements:**
 - Function named `add`
 - Takes two parameters: `a` and `b`
@@ -81,6 +96,21 @@ export function add(a, b) {
 Create a function that multiplies two numbers.
 
 **File:** `src/math.js` (add to existing file)
+
+**Goal:**
+Extend the tiny utility module without adding unrelated features.
+
+**Applicable Standards:**
+- `FE-TEST-002`
+
+**Standards Excerpts:**
+- `FE-TEST-002`: Avoid coupling tests to internal implementation details.
+
+**Applicable Project Notes:**
+- `PRJ-PIT-002`
+
+**Project Note Excerpts:**
+- `PRJ-PIT-002`: Do not let superficial state look correct while ownership bugs remain underneath.
 
 **Requirements:**
 - Function named `multiply`
@@ -125,7 +155,7 @@ I want you to execute the implementation plan at docs/superpowers/plans/implemen
 
 IMPORTANT: Follow the skill exactly. I will be verifying that you:
 1. Read the plan once at the beginning
-2. Provide full task text to subagents (don't make them read files)
+2. Provide full task text plus task-packet excerpts to subagents (don't make them read files)
 3. Ensure subagents do self-review before reporting
 4. Run spec compliance review before code quality review
 5. Use review loops when issues are found
@@ -140,7 +170,7 @@ PROMPT="Change to directory $TEST_PROJECT and then execute the implementation pl
 
 IMPORTANT: Follow the skill exactly. I will be verifying that you:
 1. Read the plan once at the beginning
-2. Provide full task text to subagents (don't make them read files)
+2. Provide full task text plus task-packet excerpts to subagents (don't make them read files)
 3. Ensure subagents do self-review before reporting
 4. Run spec compliance review before code quality review
 5. Use review loops when issues are found
@@ -149,7 +179,7 @@ Begin now. Execute the plan."
 
 echo "Running Claude (output will be shown below and saved to $OUTPUT_FILE)..."
 echo "================================================================================"
-cd "$SCRIPT_DIR/../.." && timeout 1800 claude -p "$PROMPT" --allowed-tools=all --add-dir "$TEST_PROJECT" --permission-mode bypassPermissions 2>&1 | tee "$OUTPUT_FILE" || {
+cd "$SCRIPT_DIR/../.." && run_with_timeout 1800 claude -p "$PROMPT" --allowed-tools=all --add-dir "$TEST_PROJECT" --permission-mode bypassPermissions 2>&1 | tee "$OUTPUT_FILE" || {
     echo ""
     echo "================================================================================"
     echo "EXECUTION FAILED (exit code: $?)"

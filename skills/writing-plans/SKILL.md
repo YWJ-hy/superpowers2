@@ -70,6 +70,32 @@ This structure informs the task decomposition. Each task should produce self-con
 - Modify: `exact/path/to/existing.py:123-145`
 - Test: `tests/exact/path/to/test.py`
 
+**Goal:**
+[One clear outcome for this task]
+
+**Spec Sections:**
+- `S1`, `S4`, `S9`
+
+**Applicable Standards:**
+- `FE-COMP-001`
+- `FE-TEST-001`
+
+**Standards Excerpts:**
+- `FE-COMP-001`: [Exact excerpt copied from standards corpus]
+- `FE-TEST-001`: [Exact excerpt copied from standards corpus]
+
+**Applicable Project Notes:**
+- `PRJ-PIT-001`
+
+**Project Note Excerpts:**
+- `PRJ-PIT-001`: [Exact excerpt copied from project-notes corpus]
+
+**Constraints / Non-goals:**
+- [Explicit boundary]
+
+**Acceptance Checks:**
+- [Specific observable outcome]
+
 - [ ] **Step 1: Write the failing test**
 
 ```python
@@ -103,6 +129,17 @@ git commit -m "feat: add specific feature"
 ```
 ````
 
+## Standards and Project Notes
+
+When the spec maps the work to a standards corpus or a repo-local project-notes corpus:
+- Copy exact rule IDs and note IDs into each relevant task
+- Include only the excerpts needed for that task
+- Prefer direct excerpts over loose paraphrases
+- If a rule or note does **not** apply, keep it out of the task packet
+- If a task needs many rules or notes, the task is probably too large and should be split
+
+Think of each task as a compact execution packet: goal, files, spec sections, relevant standards, relevant project notes, constraints, acceptance checks, and verification.
+
 ## No Placeholders
 
 Every step must contain the actual content an engineer needs. These are **plan failures** — never write them:
@@ -125,9 +162,11 @@ After writing the complete plan, look at the spec with fresh eyes and check the 
 
 **1. Spec coverage:** Skim each section/requirement in the spec. Can you point to a task that implements it? List any gaps.
 
-**2. Placeholder scan:** Search your plan for red flags — any of the patterns from the "No Placeholders" section above. Fix them.
+**2. Standards/project-note coverage:** If the spec names applicable standards or project notes, does each task carry the right IDs and excerpts? Are any irrelevant ones included?
 
-**3. Type consistency:** Do the types, method signatures, and property names you used in later tasks match what you defined in earlier tasks? A function called `clearLayers()` in Task 3 but `clearFullLayers()` in Task 7 is a bug.
+**3. Placeholder scan:** Search your plan for red flags — any of the patterns from the "No Placeholders" section above. Fix them.
+
+**4. Type consistency:** Do the types, method signatures, and property names you used in later tasks match what you defined in earlier tasks? A function called `clearLayers()` in Task 3 but `clearFullLayers()` in Task 7 is a bug.
 
 If you find issues, fix them inline. No need to re-review — just fix and move on. If you find a spec requirement with no task, add the task.
 
