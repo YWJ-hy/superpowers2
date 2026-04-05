@@ -39,3 +39,38 @@ async function reload() {
 ### Reviewer checklist
 - Did the guard live at the request/data boundary?
 - Is the page consuming a clean API instead of carrying the concurrency logic itself?
+
+## PRJ-PAT-002 Route repo knowledge through standards → spec → plan → task packet → subagent prompt
+
+**Type:** pattern
+**Status:** active
+**Last validated:** 2026-04-06
+**Keywords:** workflow, standards, specs, plans, task packets, prompt context
+
+### Applies when
+- extending this repository’s workflow
+- adding new skills
+- deciding where durable repo knowledge should enter the agent loop
+
+### Symptom / Problem
+When durable guidance is embedded ad hoc in one prompt or one feature doc, later tasks drift because the same rule is not cited consistently across the workflow.
+
+### Recommended approach
+Put durable knowledge into `company-standards` or `project-playbook` first, then reference it from specs, plans, task packets, and subagent prompts instead of re-explaining it each time.
+
+### Avoid / Do not do
+- do not hide long-lived repo guidance only inside one feature spec
+- do not embed workflow rules directly into one execution prompt when they need to be cited repeatedly
+
+### Why / History
+This repository’s workflow is designed so long-lived knowledge flows through explicit layers rather than being recopied ad hoc in every implementation session.
+
+### Example
+```md
+Applicable Project Notes
+- PRJ-PAT-002 Route repo knowledge through standards → spec → plan → task packet → subagent prompt
+```
+
+### Reviewer checklist
+- Did the change place durable knowledge in the right corpus layer first?
+- Can later specs and plans reference the same note without restating it manually?

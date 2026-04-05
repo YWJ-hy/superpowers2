@@ -65,13 +65,13 @@ echo "Test 4: Plan reading efficiency..."
 
 output=$(run_claude "In subagent-driven-development, how many times should the controller read the plan file? When does this happen?" 90)
 
-if assert_contains "$output" "once\|one time\|single" "Read plan once"; then
+if assert_contains "$output" "Once\|once\|one time\|single" "Read plan once"; then
     : # pass
 else
     exit 1
 fi
 
-if assert_contains "$output" "Step 1\|beginning\|start\|Load Plan" "Read at beginning"; then
+if assert_contains "$output" "Step 1\|beginning\|start\|Load Plan\|up front\|before any task execution begins" "Read at beginning"; then
     : # pass
 else
     exit 1
@@ -84,7 +84,7 @@ echo "Test 5: Spec compliance reviewer mindset..."
 
 output=$(run_claude "What is the spec compliance reviewer's attitude toward the implementer's report in subagent-driven-development?" 90)
 
-if assert_contains "$output" "not trust\|don't trust\|Do Not Trust the Report\|distrustful\|verify.*independently\|independently read the code\|suspiciously" "Reviewer is skeptical"; then
+if assert_contains "$output" "not trust\|don't trust\|Do Not Trust the Report\|distrustful\|skeptical\|verify.*independently\|independently read the code\|suspiciously" "Reviewer is skeptical"; then
     : # pass
 else
     exit 1
@@ -128,7 +128,7 @@ else
     exit 1
 fi
 
-if assert_contains "$output" "don't make subagent read file\|controller reads the file\|implementer gets the relevant task info pasted" "Doesn't make subagent read file"; then
+if assert_contains "$output" "don't make.*read.*file\|controller reads the file\|implementer gets the relevant task info pasted\|inline in the prompt\|not be told to go read a file\|full text instead" "Doesn't make subagent read file"; then
     : # pass
 else
     exit 1

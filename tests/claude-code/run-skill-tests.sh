@@ -58,8 +58,9 @@ while [[ $# -gt 0 ]]; do
             echo "  --help, -h           Show this help"
             echo ""
             echo "Tests:"
-            echo "  test-subagent-driven-development.sh  Test skill loading and requirements"
-            echo "  test-compound-engineering.sh         Test compound-engineering orchestration skill"
+            echo "  test-subagent-driven-development.sh     Test skill loading and requirements"
+            echo "  test-compound-engineering.sh            Test compound-engineering orchestration skill"
+            echo "  test-bootstrapping-project-knowledge.sh Test bootstrap classification and confirmation flow"
             echo ""
             echo "Integration Tests (use --integration):"
             echo "  test-subagent-driven-development-integration.sh  Full workflow execution"
@@ -77,6 +78,7 @@ done
 tests=(
     "test-subagent-driven-development.sh"
     "test-compound-engineering.sh"
+    "test-bootstrapping-project-knowledge.sh"
 )
 
 # Integration tests (slow, full execution)

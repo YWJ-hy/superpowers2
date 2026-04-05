@@ -93,6 +93,19 @@ Tests skill content and requirements (~2 minutes):
 - Review loops documented
 - Task context provision documented
 
+#### test-compound-engineering.sh
+Tests the orchestration skill (~2 minutes):
+- Skill loading and accessibility
+- Compound candidates output
+- Standards vs project-playbook corpus separation
+
+#### test-bootstrapping-project-knowledge.sh
+Tests the bootstrap skill (~3-4 minutes):
+- Skill loading and accessibility
+- Company standards vs project playbook classification logic
+- Evidence-first candidate requirements
+- Candidate-first confirmation gate
+
 ### Integration Tests (use --integration flag)
 
 #### test-subagent-driven-development-integration.sh

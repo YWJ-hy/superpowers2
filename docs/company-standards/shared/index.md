@@ -7,6 +7,8 @@
 ## Architecture
 - `SH-ARCH-001` Boundaries should reflect ownership, not tooling layers
 - `SH-ARCH-002` Specs must record non-goals explicitly
+- `SH-ARCH-003` Keep long-lived engineering knowledge in explicit corpora with stable IDs
+- `SH-ARCH-004` Pass only task-relevant excerpts instead of full corpora
 
 ## Security
 - `SH-SEC-001` Validate untrusted input at system boundaries

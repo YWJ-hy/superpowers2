@@ -279,7 +279,17 @@ cc --plugin-dir /path/to/this-framework-repo
 #### 1. 安装 / 接入本 fork
 让你的 agent 使用这个 fork 的 skills 和说明。
 
-#### 2. 先建立 project playbook
+#### 2. 先用 `bootstrapping-project-knowledge` 做知识冷启动（推荐）
+先让 agent 扫描现有仓库，产出带 evidence 的候选项，并自行判断哪些应归入 `company-standards`、哪些应归入 `project-playbook`。默认应先生成候选报告，确认后再正式落库。
+
+适合先扫描的信号包括：
+- README / docs / onboarding 文档
+- tests 中反复出现的模式
+- lint / CI / build / typecheck 配置
+- 代表性源码目录中的重复结构
+- 已存在的 reviewer guardrails
+
+#### 3. 再建立 project playbook
 优先整理当前项目最重要的 repo-specific knowledge：
 
 ```text
@@ -297,7 +307,7 @@ docs/project-playbook/
 - 重复踩坑的集成问题
 - 项目验证过的有效模式
 
-#### 3. 再建立 company standards 的相关 domain corpus
+#### 4. 再建立 company standards 的相关 domain corpus
 如果项目先从 frontend 开始，就先补：
 
 ```text
@@ -316,7 +326,7 @@ docs/company-standards/backend/
 docs/company-standards/shared/
 ```
 
-#### 4. 先选一个真实 feature 做试点
+#### 5. 先选一个真实 feature 做试点
 不要一上来全项目切换。
 
 先找一个真实需求，按以下流程走一轮：
@@ -330,7 +340,7 @@ docs/company-standards/shared/
 - project-note excerpts 是否足够实用
 - task packets 是否能有效减少上下文污染
 
-#### 5. 用 compound step 逐步反哺知识库
+#### 6. 用 compound step 逐步反哺知识库
 每次做完一个真实任务，不要只停在“功能完成”。
 
 还要判断：
