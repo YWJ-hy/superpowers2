@@ -282,6 +282,26 @@ cc --plugin-dir /path/to/this-framework-repo
 #### 2. 先用 `bootstrapping-project-knowledge` 做知识冷启动（推荐）
 先让 agent 扫描现有仓库，产出带 evidence 的候选项，并自行判断哪些应归入 `company-standards`、哪些应归入 `project-playbook`。默认应先生成候选报告，确认后再正式落库。
 
+现在这一步会先检查：
+- `docs/company-standards/` 是否已存在
+- `docs/project-playbook/` 是否已存在
+
+如果某一侧已经存在，就视为用户正在维护自己的 corpus 结构：
+- 只分析并填充该侧**已有**的 `.md` 文件
+- 不会私自新增任何新的 topic 文件
+- 即使某条结果像一个新的稳定主题，也不会私自新建 topic 文件
+- 如果没有合适的现有 topic 文件可落，就跳过该条结果
+
+如果某一侧还不存在：
+- skill 会先明确提示该 corpus 缺失
+- 再展示框架内置 template suite 供用户选择
+- 之后再询问是“仅安装模板”还是“安装后继续分析/填充”
+- 如果用户取消分析，则只拷贝模板，不继续分析填充
+
+内置模板当前维护在：
+- `skills/bootstrapping-project-knowledge/template-suites/company-standards/`
+- `skills/bootstrapping-project-knowledge/template-suites/project-playbook/`
+
 适合先扫描的信号包括：
 - README / docs / onboarding 文档
 - tests 中反复出现的模式
