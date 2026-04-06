@@ -215,8 +215,8 @@ flowchart LR
 - Acceptance Checks
 
 #### subagent 拿到的不是
-- 整个 `docs/company-standards/`
-- 整个 `docs/project-playbook/`
+- 整个 `company-standards/`
+- 整个 `project-playbook/`
 - 整份 feature spec 的所有细节
 - 一个“自己去找所有相关规则”的开放式检索任务
 

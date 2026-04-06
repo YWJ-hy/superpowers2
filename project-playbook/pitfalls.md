@@ -91,7 +91,7 @@ if (requestRef.current !== currentRequest) return
 Repo-specific lessons get promoted too early into long-lived shared standards, which blurs the line between reusable rules and local operating knowledge.
 
 ### Recommended approach
-Keep repo-bound patterns, pitfalls, and legacy constraints in `docs/project-playbook/` unless the evidence clearly shows cross-project reuse.
+Keep repo-bound patterns, pitfalls, and legacy constraints in `project-playbook/` unless the evidence clearly shows cross-project reuse.
 
 ### Avoid / Do not do
 - do not elevate local architecture quirks into company-wide rules without wider proof

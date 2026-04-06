@@ -43,7 +43,7 @@ Do not put here:
 - one-off migration notes
 - legacy limitations of one service only
 
-Those belong in `docs/project-playbook/`.
+Those belong in `project-playbook/`.
 
 ## ID prefixes
 

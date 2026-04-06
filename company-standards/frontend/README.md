@@ -1,6 +1,6 @@
 # Frontend Standards Corpus
 
-This directory is the frontend domain corpus under `docs/company-standards/`.
+This directory is the frontend domain corpus under `company-standards/`.
 In v1 it is also the primary seeded corpus for this fork's progressive-disclosure workflow.
 
 ## Purpose
@@ -39,7 +39,6 @@ Common v1 topic files:
 - `hooks.md` — hooks, effects, and async workflow rules
 - `state.md` — state ownership rules
 - `testing.md` — testing rules
-- `CHANGELOG.md` — material corpus changes over time
 
 These are recommended groupings, not a required taxonomy. Add other topic markdown files when the corpus needs a clearer split, but keep `README.md` and `index.md` as stable anchors.
 

@@ -54,7 +54,7 @@ Do not put these here:
 - temporary migration notes
 
 Those belong in:
-- `docs/project-playbook/` for repo-specific knowledge
+- `project-playbook/` for repo-specific knowledge
 - `docs/superpowers/specs/` for feature-specific design
 - `docs/superpowers/plans/` for execution details
 

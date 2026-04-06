@@ -34,14 +34,20 @@ assert_markdown_exists_under() {
 }
 
 
-echo "Test 0: Built-in template suites exist..."
-assert_markdown_exists_under "$REPO_ROOT/skills/bootstrapping-project-knowledge/template-suites/company-standards" "Company standards template suite files exist"
-assert_markdown_exists_under "$REPO_ROOT/skills/bootstrapping-project-knowledge/template-suites/project-playbook" "Project playbook template suite files exist"
+echo "Test 0: Repo-root corpora exist and duplicate suites are gone..."
+assert_markdown_exists_under "$REPO_ROOT/company-standards" "Company standards corpus files exist"
+assert_markdown_exists_under "$REPO_ROOT/project-playbook" "Project playbook corpus files exist"
+if find "$REPO_ROOT/skills/bootstrapping-project-knowledge/template-suites" -name "*.md" -print -quit 2>/dev/null | grep -q .; then
+    echo "  [FAIL] Duplicate template suite markdown still exists"
+    exit 1
+else
+    echo "  [PASS] Duplicate template suite markdown removed"
+fi
 
 echo ""
 echo "Test 1: Skill loading..."
 output=$(run_claude "What is the bootstrapping-project-knowledge skill? Describe its purpose briefly." 90)
-assert_contains "$output" "bootstrapping-project-knowledge\|Bootstrap Project Knowledge\|project knowledge bootstrap\|cold-starting project knowledge\|cold-start project knowledge\|existing repo\|repo-onboarding skill\|existing codebase" "Skill is recognized" || exit 1
+assert_contains "$output" "bootstrapping-project-knowledge\|Bootstrap Project Knowledge\|project knowledge bootstrap\|cold-starting project knowledge\|cold-start project knowledge\|existing repo\|repo-onboarding skill\|existing codebase\|知识冷启动\|已有代码库" "Skill is recognized" || exit 1
 assert_contains "$output" "company standards\|company-standards\|project playbook\|project-playbook" "Mentions corpus targets" || exit 1
 
 echo ""
@@ -65,7 +71,7 @@ assert_contains "$output" "No\.\|do not write directly\|wait for confirmation\|o
 echo ""
 echo "Test 5: Skill text locks missing-corpus suite boundaries..."
 assert_skill_contains "Do \*\*not\*\* add extra topic files beyond the chosen suite" "Skill forbids extra topic files beyond selected suite"
-assert_skill_contains "user chooses a built-in template suite before any copying, scaffolding, analysis, or filling happens" "Skill requires template selection before copy or analysis"
+assert_skill_contains "user chooses a built-in template suite.*before any copying, scaffolding, analysis, or filling happens" "Skill requires template selection before copy or analysis"
 
 echo ""
 echo "Test 6: Skill text locks existing-corpus restrictions..."

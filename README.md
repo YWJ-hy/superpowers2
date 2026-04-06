@@ -31,7 +31,7 @@
 新增：
 
 ```text
-docs/company-standards/
+company-standards/
   frontend/
   backend/
   shared/
@@ -55,7 +55,7 @@ docs/company-standards/
 新增：
 
 ```text
-docs/project-playbook/
+project-playbook/
 ```
 
 作用：
@@ -114,8 +114,8 @@ skills/compound-engineering/SKILL.md
 
 ### 7. 为未来 private overlay 预留扩展点
 当前 v1 默认使用 repo-local corpora：
-- `docs/company-standards/...`
-- `docs/project-playbook/...`
+- `company-standards/...`
+- `project-playbook/...`
 
 但 workflow 内部已经尽量使用：
 - standards corpus
@@ -150,7 +150,7 @@ docs/
 
 ### 各层职责
 
-#### `docs/company-standards/`
+#### `company-standards/`
 公司级、多项目、多域长期标准。
 
 适合放：
@@ -158,7 +158,7 @@ docs/
 - backend API/service/data/testing/observability 规则
 - shared testing/security/architecture/rollout 规则
 
-#### `docs/project-playbook/`
+#### `project-playbook/`
 当前项目专属经验层。
 
 适合放：
@@ -283,8 +283,8 @@ cc --plugin-dir /path/to/this-framework-repo
 先让 agent 扫描现有仓库，产出带 evidence 的候选项，并自行判断哪些应归入 `company-standards`、哪些应归入 `project-playbook`。默认应先生成候选报告，确认后再正式落库。
 
 现在这一步会先检查：
-- `docs/company-standards/` 是否已存在
-- `docs/project-playbook/` 是否已存在
+- `company-standards/` 是否已存在
+- `project-playbook/` 是否已存在
 
 如果某一侧已经存在，就视为用户正在维护自己的 corpus 结构：
 - 只分析并填充该侧**已有**的 `.md` 文件
@@ -299,8 +299,8 @@ cc --plugin-dir /path/to/this-framework-repo
 - 如果用户取消分析，则只拷贝模板，不继续分析填充
 
 内置模板当前维护在：
-- `skills/bootstrapping-project-knowledge/template-suites/company-standards/`
-- `skills/bootstrapping-project-knowledge/template-suites/project-playbook/`
+- `company-standards/`
+- `project-playbook/`
 
 适合先扫描的信号包括：
 - README / docs / onboarding 文档
@@ -313,7 +313,7 @@ cc --plugin-dir /path/to/this-framework-repo
 优先整理当前项目最重要的 repo-specific knowledge：
 
 ```text
-docs/project-playbook/
+project-playbook/
   README.md
   index.md
   pitfalls.md
@@ -336,19 +336,19 @@ docs/project-playbook/
 如果项目先从 frontend 开始，就先补：
 
 ```text
-docs/company-standards/frontend/
+company-standards/frontend/
 ```
 
 如果项目是后端为主，就先补：
 
 ```text
-docs/company-standards/backend/
+company-standards/backend/
 ```
 
 如果存在跨域规则，就补：
 
 ```text
-docs/company-standards/shared/
+company-standards/shared/
 ```
 
 每个 domain corpus 都建议保留：
@@ -393,8 +393,8 @@ docs/company-standards/shared/
 如果你不想一次性做太多，建议最低配这样开始：
 
 ```text
-docs/company-standards/frontend/index.md
-docs/project-playbook/index.md
+company-standards/frontend/index.md
+project-playbook/index.md
 ```
 
 然后先补最常用的：
@@ -419,14 +419,14 @@ docs/project-playbook/index.md
 至少建立：
 
 ```text
-docs/company-standards/
+company-standards/
   README.md
   index.md
   frontend/
   backend/
   shared/
 
-docs/project-playbook/
+project-playbook/
   README.md
   index.md
 
@@ -463,7 +463,7 @@ docs/superpowers/plans/
 即使是新项目，也建议从一开始就有：
 
 ```text
-docs/project-playbook/index.md
+project-playbook/index.md
 ```
 
 因为新项目很快也会出现：
