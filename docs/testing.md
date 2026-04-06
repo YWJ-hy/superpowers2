@@ -44,7 +44,7 @@ cd tests/claude-code
 The integration test verifies the `subagent-driven-development` skill correctly:
 
 1. **Plan Loading**: Reads the plan once at the beginning
-2. **Task Packets**: Provides complete task descriptions plus relevant standards/project-note excerpts to subagents (doesn't make them read files)
+2. **Task Packets**: Provides complete task descriptions plus relevant standards/project-note excerpts when available to subagents (doesn't make them read files)
 3. **Self-Review**: Ensures subagents perform self-review before reporting
 4. **Review Order**: Runs spec compliance review before code quality review
 5. **Review Loops**: Uses review loops when issues are found
@@ -59,7 +59,7 @@ The integration test verifies the `subagent-driven-development` skill correctly:
    - Subagents were dispatched (Task tool)
    - TodoWrite was used for tracking
    - Implementation files were created
-   - Task-packet guidance (such as standards/project-note excerpts) was available when relevant
+   - Task-packet guidance (such as standards/project-note excerpts) was available when relevant and not fabricated when corpus templates were still empty
    - Tests pass
    - Git commits show proper workflow
 4. **Token Analysis**: Shows token usage breakdown by subagent

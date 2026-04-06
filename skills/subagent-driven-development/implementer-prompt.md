@@ -24,14 +24,14 @@ Task tool (general-purpose):
     **Applicable standards:**
     [Rule IDs only]
 
-    **Standards excerpts:**
-    [Only the exact standards excerpts relevant to this task]
+    **Standards excerpts (if available):**
+    [Only the exact standards excerpts relevant to this task when they exist]
 
     **Applicable project notes:**
     [Project-note IDs only]
 
-    **Project-note excerpts:**
-    [Only the exact project-note excerpts relevant to this task]
+    **Project-note excerpts (if available):**
+    [Only the exact project-note excerpts relevant to this task when they exist]
 
     **Constraints / Non-goals:**
     [Explicit boundaries]

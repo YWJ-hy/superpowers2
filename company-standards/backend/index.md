@@ -1,22 +1,16 @@
 # Backend Standards Index
 
 ## API
-- `BE-API-001` Keep handlers thin; orchestration belongs in services
-- `BE-API-002` Validate untrusted input at the boundary
-- `BE-API-003` Evolve API responses compatibly
+- No entries yet
 
 ## Services
-- `BE-SVC-001` Service boundaries reflect business capability
-- `BE-SVC-002` Keep orchestration out of transport adapters
+- No entries yet
 
 ## Data Access
-- `BE-DATA-001` Keep query ownership explicit
-- `BE-DATA-002` Avoid hidden cross-repository transaction coupling
+- No entries yet
 
 ## Testing
-- `BE-TEST-001` Prefer integration tests where persistence behavior matters
-- `BE-TEST-002` Do not over-mock persistence or transport edges
+- No entries yet
 
 ## Observability
-- `BE-OBS-001` Log with request/job identity
-- `BE-OBS-002` Emit metrics at stable ownership boundaries
+- No entries yet

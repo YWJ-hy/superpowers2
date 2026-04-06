@@ -192,9 +192,9 @@ docs/
 每个任务会绑定：
 - spec sections
 - standards IDs
-- standards excerpts
+- standards excerpts（如果可用）
 - project-note IDs
-- project-note excerpts
+- project-note excerpts（如果可用）
 - constraints / acceptance checks
 
 ### Step 3: Subagent-Driven Development
@@ -368,7 +368,7 @@ company-standards/shared/
 
 在这个 feature 里验证：
 - standards IDs 是否足够清晰
-- project-note excerpts 是否足够实用
+- project-note excerpts（如果可用）是否足够实用
 - task packets 是否能有效减少上下文污染
 - agent 是否只消费当前任务相关的 excerpts，而不是被动读取整库
 
@@ -441,7 +441,7 @@ docs/superpowers/plans/
 - 后端项目：先补 `backend/`
 - 全栈项目：补 `frontend/` + `backend/` + `shared/`
 
-#### 3. 建立首批 seed rules
+#### 3. 建立首批 初始规则内容
 建议不要贪多。
 
 ##### frontend 首批建议
@@ -482,6 +482,8 @@ project-playbook/index.md
 - 设计清晰度
 - 执行一致性
 - 经验沉淀能力
+
+注意：repo-root `company-standards/` 与 `project-playbook/` 默认是模板结构，topic 文件可以先为空壳，后续再由人工或 `bootstrapping-project-knowledge` 初始化内容。
 
 ---
 
@@ -532,7 +534,7 @@ project-playbook/index.md
 
 ### 对新项目
 1. 先建 `company-standards` + `project-playbook` 基础结构
-2. 先补少量 seed rules
+2. 先补少量 初始规则内容
 3. 从第一个 feature 起就用统一 workflow
 
 ---

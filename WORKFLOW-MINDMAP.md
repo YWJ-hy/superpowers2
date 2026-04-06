@@ -410,7 +410,7 @@ flowchart TD
     C --> D[建立 project-playbook]
     D --> E[建立 specs / plans 目录]
     E --> F[选择首批 domain corpus]
-    F --> G[补少量 seed rules]
+    F --> G[按需补少量初始规则内容]
     G --> H[开始第一个真实 feature]
     H --> I[Brainstorming]
     I --> J[Writing Plans]
@@ -422,7 +422,7 @@ flowchart TD
 ### 新项目初始化的关键点
 - 先把目录结构搭起来
 - 不需要一开始就补全全部规则
-- 只需要少量 seed rules 就可以启动
+- 只需要少量初始规则内容，甚至先保留空壳模板，也可以启动
 - project playbook 从第一天就应该存在
 - 从第一个 feature 开始就走统一 workflow
 
@@ -448,9 +448,9 @@ implementer 默认拿到的是一个受控 task packet：
 - goal
 - spec sections
 - applicable standards
-- standards excerpts
+- standards excerpts（如果可用）
 - applicable project notes
-- project note excerpts
+- project note excerpts（如果可用）
 - constraints / non-goals
 - acceptance checks
 

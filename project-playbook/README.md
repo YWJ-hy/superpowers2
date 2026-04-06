@@ -13,8 +13,8 @@ Use this corpus for information that is true for this project but should not be 
 ## How the workflow uses this corpus
 
 1. `brainstorming` maps a feature to relevant project-note IDs.
-2. `writing-plans` copies only the relevant project-note IDs and excerpts into each task packet.
-3. `subagent-driven-development` passes only those excerpts to implementer and reviewer subagents.
+2. `writing-plans` copies the relevant project-note IDs and any available excerpts into each task packet.
+3. `subagent-driven-development` passes only the task-relevant excerpts when they are available.
 4. `compound-engineering` suggests whether a new lesson belongs here or should be promoted to company standards instead.
 
 ## File map

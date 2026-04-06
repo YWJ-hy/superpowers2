@@ -77,18 +77,18 @@ This structure informs the task decomposition. Each task should produce self-con
 - `S1`, `S4`, `S9`
 
 **Applicable Standards:**
-- `FE-COMP-001`
-- `FE-TEST-001`
+- `[STANDARD-ID-001]`
+- `[STANDARD-ID-002]`
 
-**Standards Excerpts:**
-- `FE-COMP-001`: [Exact excerpt copied from standards corpus]
-- `FE-TEST-001`: [Exact excerpt copied from standards corpus]
+**Standards Excerpts (if available):**
+- `[STANDARD-ID-001]`: [Exact excerpt copied from standards corpus when available]
+- `[STANDARD-ID-002]`: [Exact excerpt copied from standards corpus when available]
 
 **Applicable Project Notes:**
-- `PRJ-PIT-001`
+- `[PROJECT-NOTE-ID-001]`
 
-**Project Note Excerpts:**
-- `PRJ-PIT-001`: [Exact excerpt copied from project-notes corpus]
+**Project Note Excerpts (if available):**
+- `[PROJECT-NOTE-ID-001]`: [Exact excerpt copied from project-notes corpus when available]
 
 **Constraints / Non-goals:**
 - [Explicit boundary]
@@ -133,8 +133,9 @@ git commit -m "feat: add specific feature"
 
 When the spec maps the work to a standards corpus or a repo-local project-notes corpus:
 - Copy exact rule IDs and note IDs into each relevant task
-- Read the cited corpus cards and paste the exact excerpts needed for that task
-- Prefer direct excerpts over loose paraphrases
+- If the cited corpus card exists, paste the exact excerpts needed for that task
+- If the corpus is still an empty template shell, keep the ID but do **not** invent or paraphrase missing content
+- Prefer direct excerpts over loose paraphrases when excerpts are available
 - Do not assume one file per rule or note; the relevant card may live in any topic file under the right corpus
 - If a rule or note does **not** apply, keep it out of the task packet
 - If a task needs many rules or notes, the task is probably too large and should be split

@@ -1,7 +1,7 @@
 # Frontend Standards Corpus
 
 This directory is the frontend domain corpus under `company-standards/`.
-In v1 it is also the primary seeded corpus for this fork's progressive-disclosure workflow.
+In v1 it serves as a repo-root template structure for this fork's progressive-disclosure workflow.
 
 ## Purpose
 
@@ -13,13 +13,13 @@ Use this corpus for organization-level frontend rules that should apply across m
 
 This corpus is one domain-specific part of the broader company standards framework, which can also include backend and shared standards.
 
-These files are the **default repo-local source** for the frontend domain in v1. The workflow should still talk about a *standards corpus* rather than hard-coding this path too deeply, so future backend/shared corpora or a private overlay can be introduced without rewriting the entire skill chain.
+These files are the **default repo-root template structure** for the frontend domain in v1. The workflow should still talk about a *standards corpus* rather than hard-coding this path too deeply, so future backend/shared corpora or a private overlay can be introduced without rewriting the entire skill chain.
 
 ## How the workflow uses this corpus
 
 1. `brainstorming` maps a feature to relevant rule IDs.
-2. `writing-plans` copies only the relevant rule IDs and excerpts into each task packet.
-3. `subagent-driven-development` passes only those excerpts to implementer and reviewer subagents.
+2. `writing-plans` copies the relevant rule IDs and any available excerpts into each task packet.
+3. `subagent-driven-development` passes only the task-relevant excerpts when they are available.
 4. `compound-engineering` suggests changes back into this corpus when a new practice proves reusable.
 
 ## Rule levels

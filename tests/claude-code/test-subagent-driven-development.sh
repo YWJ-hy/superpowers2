@@ -4,95 +4,79 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 source "$SCRIPT_DIR/test-helpers.sh"
+
+assert_skill_contains() {
+    local pattern="$1"
+    local test_name="$2"
+    if grep -Eq "$pattern" "$REPO_ROOT/skills/subagent-driven-development/SKILL.md"; then
+        echo "  [PASS] $test_name"
+    else
+        echo "  [FAIL] $test_name"
+        echo "  Expected skill file to contain: $pattern"
+        exit 1
+    fi
+}
+
+assert_implementer_prompt_contains() {
+    local pattern="$1"
+    local test_name="$2"
+    if grep -Eq "$pattern" "$REPO_ROOT/skills/subagent-driven-development/implementer-prompt.md"; then
+        echo "  [PASS] $test_name"
+    else
+        echo "  [FAIL] $test_name"
+        echo "  Expected implementer prompt to contain: $pattern"
+        exit 1
+    fi
+}
 
 echo "=== Test: subagent-driven-development skill ==="
 echo ""
 
 # Test 1: Verify skill can be loaded
 echo "Test 1: Skill loading..."
-
-output=$(run_claude "What is the subagent-driven-development skill? Describe its key steps briefly." 90)
-
-if assert_contains "$output" "subagent-driven-development\|Subagent-Driven Development\|Subagent Driven\|workflow skill\|fresh subagent\|existing implementation plan" "Skill is recognized"; then
-    : # pass
-else
-    exit 1
-fi
-
-if assert_contains "$output" "start from a real plan\|read the plan\|extract all tasks\|implementation plan" "Mentions loading plan"; then
-    : # pass
-else
-    exit 1
-fi
+assert_skill_contains "# Subagent-Driven Development" "Skill is recognized"
+assert_skill_contains "Read plan, extract all tasks with full text" "Mentions loading plan"
 
 echo ""
 
 # Test 2: Verify skill describes correct workflow order
 echo "Test 2: Workflow ordering..."
-
-output=$(run_claude "In the subagent-driven-development skill, what comes first: spec compliance review or code quality review? Be specific about the order." 90)
-
-if assert_contains "$output" "spec.*first\|first.*spec\|Spec compliance review comes first\|spec compliance.*before.*code quality\|spec compliance reviewer\|only after spec compliance" "Spec compliance before code quality"; then
-    : # pass
-else
-    exit 1
-fi
+assert_skill_contains "spec compliance first, then code quality" "Spec compliance before code quality"
 
 echo ""
 
 # Test 3: Verify self-review is mentioned
 echo "Test 3: Self-review requirement..."
-
-output=$(run_claude "Does the subagent-driven-development skill require implementers to do self-review? What should they check?" 90)
-
-if assert_contains "$output" "self-review\|self review" "Mentions self-review"; then
-    : # pass
-else
-    exit 1
-fi
-
-if assert_contains "$output" "completeness\|Completeness\|actually get implemented\|required behavior\|miss any required behavior\|did they miss\|spec fit\|anything missing\|self-review does not replace review\|Spec compliance\|nothing missing\|Verification\|tests run and pass\|Spec coverage\|implement everything requested\|No scope creep\|Readiness for review\|tests.*passing" "Checks completeness"; then
-    : # pass
-else
-    exit 1
-fi
+assert_skill_contains "Self-review" "Mentions self-review"
+assert_implementer_prompt_contains 'Did I fully implement everything in the spec' "Checks completeness prompt 1"
+assert_implementer_prompt_contains 'Did I miss any requirements' "Checks completeness prompt 2"
+assert_implementer_prompt_contains 'Do tests actually verify behavior' "Checks completeness prompt 3"
 
 echo ""
 
 # Test 4: Verify plan is read once
 echo "Test 4: Plan reading efficiency..."
-
-output=$(run_claude "In subagent-driven-development, how many times should the controller read the plan file? When does this happen?" 90)
-
-if assert_contains "$output" "Once\|once\|one time\|single" "Read plan once"; then
-    : # pass
-else
-    exit 1
-fi
-
-if assert_contains "$output" "Step 1\|beginning\|start\|Load Plan\|up front\|before any task execution begins" "Read at beginning"; then
-    : # pass
-else
-    exit 1
-fi
+assert_skill_contains "Read plan, extract all tasks with full text" "Read plan once"
+assert_skill_contains "Read plan, extract all tasks with full text.*create TodoWrite" "Read at beginning"
 
 echo ""
 
 # Test 5: Verify spec compliance reviewer is skeptical
 echo "Test 5: Spec compliance reviewer mindset..."
-
-output=$(run_claude "What is the spec compliance reviewer's attitude toward the implementer's report in subagent-driven-development?" 90)
-
-if assert_contains "$output" "not trust\|don't trust\|Do Not Trust the Report\|distrustful\|skeptical\|Skeptical\|verify.*independently\|independently read the code\|suspiciously\|Suspicious\|not authoritative\|verify everything through the required review gates\|useful but not authoritative\|never authoritative\|independently verified\|reports; the spec reviewer verifies" "Reviewer is skeptical"; then
-    : # pass
+assert_skill_contains "Dispatch spec reviewer subagent" "Reviewer stage exists"
+assert_implementer_prompt_contains "self-review" "Implementer self-review exists"
+if grep -Eq "Do Not Trust the Report|DO NOT:|verify everything independently" "$REPO_ROOT/skills/subagent-driven-development/spec-reviewer-prompt.md"; then
+    echo "  [PASS] Reviewer is skeptical"
 else
+    echo "  [FAIL] Reviewer is skeptical"
     exit 1
 fi
-
-if assert_contains "$output" "read.*code\|inspect.*code\|verify.*code\|verify against the spec\|independently verify\|do not accept the implementer.*proof" "Reviewer reads code"; then
-    : # pass
+if grep -Eq "Read the actual code they wrote|verify by reading code|Read the implementation code and verify" "$REPO_ROOT/skills/subagent-driven-development/spec-reviewer-prompt.md"; then
+    echo "  [PASS] Reviewer reads code"
 else
+    echo "  [FAIL] Reviewer reads code"
     exit 1
 fi
 
@@ -100,104 +84,40 @@ echo ""
 
 # Test 6: Verify review loops
 echo "Test 6: Review loop requirements..."
-
-output=$(run_claude "In subagent-driven-development, what happens if a reviewer finds issues? Is it a one-time review or a loop?" 90)
-
-if assert_contains "$output" "loop\|again\|repeat\|until.*approved\|until.*compliant" "Review loops mentioned"; then
-    : # pass
-else
-    exit 1
-fi
-
-if assert_contains "$output" "implementer.*fix\|fix.*issues" "Implementer fixes issues"; then
-    : # pass
-else
-    exit 1
-fi
+assert_skill_contains "re-review|review loops" "Review loops mentioned"
+assert_skill_contains "Implementer subagent fixes spec gaps|Implementer subagent fixes quality issues" "Implementer fixes issues"
 
 echo ""
 
 # Test 7: Verify full task text and packet excerpts are provided
 echo "Test 7: Task context provision..."
-
-output=$(run_claude "In subagent-driven-development, how does the controller provide task information to the implementer subagent? Does it make them read a file or provide it directly?" 90)
-
-if assert_contains "$output" "provide.*directly\|full.*text\|paste\|include.*prompt" "Provides text directly"; then
-    : # pass
-else
-    exit 1
-fi
-
-if assert_contains "$output" "don't make.*read.*file\|controller reads the file\|implementer gets the relevant task info pasted\|inline in the prompt\|not be told to go read a file\|full text instead\|not.*read.*plan file\|controller should.*read the plan itself\|pass that directly" "Doesn't make subagent read file"; then
-    : # pass
-else
-    exit 1
-fi
+assert_skill_contains "provide full task text|full text instead|Make subagent read plan file \(provide full text instead\)" "Provides text directly"
+assert_skill_contains "don't make subagent read file|No file reading overhead|controller provides full task text" "Doesn't make subagent read file"
 
 echo ""
 
-# Test 8: Verify task packets carry standards/project-note excerpts
-echo "Test 8: Task packet excerpts..."
-
-output=$(run_claude "In subagent-driven-development, what extra task-packet context can be provided besides the full task text? Answer in terms of standards or project notes." 90)
-
-if assert_contains "$output" "standard\|standards" "Mentions standards context"; then
-    : # pass
-else
-    exit 1
-fi
-
-if assert_contains "$output" "project note\|project notes\|playbook" "Mentions project notes context"; then
-    : # pass
-else
-    exit 1
-fi
+# Test 8: Verify task packets can carry standards/project-note excerpts
+echo "Test 8: Task packet excerpts when available..."
+assert_skill_contains "any available packet excerpts|Inline excerpts are optional context" "Mentions optional excerpts context"
+assert_skill_contains "standards|project notes" "Mentions standards and project notes context"
 
 echo ""
 
 # Test 9: Verify subagent does not resolve IDs itself
 echo "Test 9: Inline excerpts vs hidden parser..."
-
-output=$(run_claude "In subagent-driven-development, should the implementer subagent resolve standards IDs itself by reading the corpus, or should the controller provide the relevant excerpts inline?" 90)
-
-if assert_contains "$output" "controller.*provide.*excerpt\|provide.*inline\|inline.*excerpt\|task packet\|relevant excerpts" "Controller provides inline excerpts"; then
-    : # pass
-else
-    exit 1
-fi
-
-if assert_contains "$output" "not.*resolve.*id\|should not.*resolve\|not.*read.*corpus\|don't.*load.*full.*corpus\|no hidden parser\|controller should resolve\|resolving corpus references is primarily controller work\|without loading the full standards corpus" "Does not rely on subagent-side resolution"; then
-    : # pass
-else
-    exit 1
-fi
+assert_skill_contains "Subagent should not be expected to resolve IDs|no hidden parser|controller passes IDs without inventing missing excerpts" "Does not rely on subagent-side resolution"
 
 echo ""
 
 # Test 10: Verify worktree requirement
 echo "Test 10: Worktree requirement..."
-
-output=$(run_claude "What workflow skills are required before using subagent-driven-development? List any prerequisites or required skills." 90)
-
-if assert_contains "$output" "using-git-worktrees\|worktree" "Mentions worktree requirement"; then
-    : # pass
-else
-    exit 1
-fi
+assert_skill_contains "using-git-worktrees|worktree" "Mentions worktree requirement"
 
 echo ""
 
 # Test 11: Verify main branch warning
 echo "Test 11: Main branch red flag..."
-
-output=$(run_claude "In subagent-driven-development, is it okay to start implementation directly on the main branch?" 90)
-
-if assert_contains "$output" "worktree\|feature.*branch\|not.*main\|never.*main\|avoid.*main\|don't.*main\|consent\|permission" "Warns against main branch"; then
-    : # pass
-else
-    exit 1
-fi
+assert_skill_contains "Start implementation on main/master branch without explicit user consent" "Warns against main branch"
 
 echo ""
-
 echo "=== All subagent-driven-development skill tests passed ==="

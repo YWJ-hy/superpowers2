@@ -1,21 +1,16 @@
 # Shared Standards Index
 
 ## Testing
-- `SH-TEST-001` Prefer externally observable behavior assertions
-- `SH-TEST-002` Do not overspecify implementation details in tests
+- No entries yet
 
 ## Architecture
-- `SH-ARCH-001` Boundaries should reflect ownership, not tooling layers
-- `SH-ARCH-002` Specs must record non-goals explicitly
-- `SH-ARCH-003` Keep long-lived engineering knowledge in explicit corpora with stable IDs
-- `SH-ARCH-004` Pass only task-relevant excerpts instead of full corpora
+- No entries yet
 
 ## Security
-- `SH-SEC-001` Validate untrusted input at system boundaries
-- `SH-SEC-002` Keep secrets and sensitive config out of implementation logic
+- No entries yet
 
 ## Rollout
-- `SH-ROLL-001` Rollout-sensitive changes need a verification plan
+- No entries yet
 
 ## Reliability
-- `SH-REL-001` Put retry/idempotency at the ownership boundary
+- No entries yet

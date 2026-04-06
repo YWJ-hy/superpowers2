@@ -9,6 +9,8 @@ description: Use when onboarding an existing repository into this framework and 
 
 Use this skill to cold-start the framework on an existing codebase.
 
+The repo-root corpora may begin as structure-only templates with empty topic files. That is a valid starting state.
+
 The goal is not to dump vague best practices into repo docs. The goal is to scan the project, extract high-signal engineering knowledge, and sort each finding into the right long-lived corpus:
 - `company-standards/` for reusable organization-level rules
 - `project-playbook/` for repo-specific pitfalls, patterns, and legacy constraints
@@ -83,9 +85,9 @@ Tell the user which corpus directory is missing, then:
    - copy/install the suite only
    - copy/install the suite and then analyze/fill the suite's `[topic].md` files
 
-If the user declines analysis/filling, only copy the selected suite into the project and stop.
+If the user declines analysis/filling, only perform the requested template install/copy step and stop. Empty topic files after install are expected in template mode, and no further evidence analysis or inferred content generation should happen.
 
-If the user approves analysis/filling, only analyze/fill files that come from the selected suite in the repo-root corpus. Do **not** add extra topic files beyond the chosen suite.
+If the user approves analysis/filling, only analyze/fill files that come from the selected suite in the repo-root corpus. In template mode this is how the first real entries get written into otherwise empty topic files. Do **not** add extra topic files beyond the chosen suite.
 
 Do **not** replace this flow with “create empty folders first” or “create a minimal scaffold first.” The built-in template suite selection step comes first.
 

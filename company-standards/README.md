@@ -23,7 +23,7 @@ Beyond those anchor files, topic markdown files are flexible. Files such as `com
 
 ## Current v1 status
 
-In v1, `frontend/` is the primary seeded corpus.
+In v1, the repo-root corpora act as template structure and anchor files.
 The framework is intentionally designed so additional corpora can be added without changing the workflow model.
 
 That means:
@@ -66,10 +66,10 @@ Use domain-specific prefixes:
 - `BE-*` for backend
 - `SH-*` for shared
 
-Examples:
-- `FE-COMP-001`
-- `BE-API-002`
-- `SH-TEST-001`
+Example ID families:
+- `FE-COMP-*`
+- `BE-API-*`
+- `SH-TEST-*`
 
 ## Rule shape
 

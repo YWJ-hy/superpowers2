@@ -16,11 +16,11 @@ Task tool (general-purpose):
 
     ## Applicable Standards
 
-    [Relevant standards IDs and excerpts only]
+    [Relevant standards IDs and any available excerpts only]
 
     ## Applicable Project Notes
 
-    [Relevant project-note IDs and excerpts only]
+    [Relevant project-note IDs and any available excerpts only]
 
     ## What Implementer Claims They Built
 

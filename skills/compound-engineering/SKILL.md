@@ -16,10 +16,12 @@ Use it to:
 2. keep standards/project-note context explicit
 3. finish with a `Compound Candidates` block that suggests what should be reused later
 
+When packet excerpts are available, keep them explicit. When corpora are still empty template shells, do not invent excerpts.
+
 ## Workflow
 
 1. **Brainstorm** — use `superpowers:brainstorming` to define the design
-2. **Plan** — use `superpowers:writing-plans` to create task packets with spec sections, standards, and project-note excerpts
+2. **Plan** — use `superpowers:writing-plans` to create task packets with spec sections, standards, and any available project-note excerpts
 3. **Execute** — prefer `superpowers:subagent-driven-development`; use `superpowers:dispatching-parallel-agents` only for truly independent research or review work
 4. **Compound** — after implementation, produce a final lessons block
 

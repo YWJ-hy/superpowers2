@@ -34,9 +34,15 @@ assert_markdown_exists_under() {
 }
 
 
-echo "Test 0: Repo-root corpora exist and duplicate suites are gone..."
+echo "Test 0: Repo-root corpora exist, topic shells are empty, and duplicate suites are gone..."
 assert_markdown_exists_under "$REPO_ROOT/company-standards" "Company standards corpus files exist"
 assert_markdown_exists_under "$REPO_ROOT/project-playbook" "Project playbook corpus files exist"
+if grep -R "## FE-\|## BE-\|## SH-\|## PRJ-" "$REPO_ROOT/company-standards" "$REPO_ROOT/project-playbook" >/dev/null 2>&1; then
+    echo "  [FAIL] Seeded rule or note entries still exist in template topics"
+    exit 1
+else
+    echo "  [PASS] Repo-root topic files are empty shells"
+fi
 if find "$REPO_ROOT/skills/bootstrapping-project-knowledge/template-suites" -name "*.md" -print -quit 2>/dev/null | grep -q .; then
     echo "  [FAIL] Duplicate template suite markdown still exists"
     exit 1
@@ -46,27 +52,23 @@ fi
 
 echo ""
 echo "Test 1: Skill loading..."
-output=$(run_claude "What is the bootstrapping-project-knowledge skill? Describe its purpose briefly." 90)
-assert_contains "$output" "bootstrapping-project-knowledge\|Bootstrap Project Knowledge\|project knowledge bootstrap\|cold-starting project knowledge\|cold-start project knowledge\|existing repo\|repo-onboarding skill\|existing codebase\|知识冷启动\|已有代码库" "Skill is recognized" || exit 1
-assert_contains "$output" "company standards\|company-standards\|project playbook\|project-playbook" "Mentions corpus targets" || exit 1
+assert_skill_contains "# Bootstrapping Project Knowledge" "Skill is recognized"
+assert_skill_contains "company-standards/|project-playbook/" "Mentions corpus targets"
 
 echo ""
 echo "Test 2: Classification logic..."
-output=$(run_claude "In the bootstrapping-project-knowledge skill, how should Claude decide whether a finding belongs in company standards or the project playbook?" 90)
-assert_contains "$output" "cross-project\|reusable\|long-term\|organization-level\|跨项目\|复用\|长期" "Mentions standards criteria" || exit 1
-assert_contains "$output" "repo-specific\|repository-specific\|project-specific\|legacy\|pitfall\|pattern\|当前仓库\|本仓库\|本地模式\|历史包袱" "Mentions playbook criteria" || exit 1
+assert_skill_contains "reusable across multiple features or projects|stable enough to remain useful over time" "Mentions standards criteria"
+assert_skill_contains "repo-specific pitfalls, patterns, and legacy constraints|PRJ-LEG-\*|legacy constraints" "Mentions playbook criteria"
 
 echo ""
 echo "Test 3: Evidence requirement..."
-output=$(run_claude "What evidence should bootstrapping-project-knowledge require before proposing a standard or project note?" 90)
-assert_contains "$output" "evidence\|file path\|docs\|tests\|config\|codebase" "Mentions evidence sources" || exit 1
-assert_contains "$output" "repeat\|Repeat\|repeated\|Repeated\|documented\|signal\|重复\|高信号\|多文件" "Mentions evidence quality" || exit 1
+assert_skill_contains "at least one concrete file path|a short evidence summary|why the evidence implies a durable rule or note" "Mentions evidence sources"
+assert_skill_contains "repeated patterns in multiple files|explicit repo docs or contributor guidance|repeated tests" "Mentions evidence quality"
 
 echo ""
 echo "Test 4: Confirmation gate..."
-output=$(run_claude "After bootstrapping-project-knowledge finds candidate standards and project notes, should it write them directly into the corpora?" 90)
-assert_contains "$output" "candidate\|report\|review\|confirm" "Mentions candidate/review flow" || exit 1
-assert_contains "$output" "No\.\|do not write directly\|wait for confirmation\|only then write\|only then update\|等你确认\|然后才写\|不应该默认直接写入" "Requires confirmation before writes" || exit 1
+assert_skill_contains "produce candidate report|ask for confirmation|only then write or update corpus files" "Mentions candidate/review flow"
+assert_skill_contains 'Do \*\*not\*\* write directly into `company-standards/` or `project-playbook/` by default' "Requires confirmation before writes"
 
 echo ""
 echo "Test 5: Skill text locks missing-corpus suite boundaries..."
@@ -89,10 +91,9 @@ assert_skill_contains "should Claude ask the user to choose a built-in template 
 
 echo ""
 echo "Test 9: Install-only path..."
-output=$(run_claude "If the user selects a built-in template suite for a missing corpus but declines further analysis, what should bootstrapping-project-knowledge do?" 90)
-assert_contains "$output" "copy\|install\|拷贝\|安装" "Installs selected template suite" || exit 1
-assert_contains "$output" "stop\|only\|不继续\|仅" "Stops after install when analysis is declined" || exit 1
-assert_contains "$output" "not continue analyzing or filling\|stop without analysis/filling\|不继续分析填充" "Does not continue analysis after install-only choice" || exit 1
+assert_skill_contains "only perform the requested template install/copy step and stop" "Installs selected template suite"
+assert_skill_contains "Empty topic files after install are expected in template mode" "Install-only path keeps empty topic shells"
+assert_skill_contains "no further evidence analysis or inferred content generation should happen" "Does not continue analysis after install-only choice"
 
 echo ""
 echo "Test 10: Skill text covers partial-missing handling..."
@@ -102,8 +103,7 @@ assert_skill_contains "missing side: follow the suite-selection flow" "Skill rou
 
 echo ""
 echo "Test 11: Additive ID governance..."
-output=$(run_claude "In the bootstrapping-project-knowledge skill, if multiple maintainers add new standards and IDs collide, should Claude renumber existing IDs to make the sequence pretty?" 90)
-assert_contains "$output" "No\.\|do not renumber\|prefer additive\|next available\|collision" "Mentions additive ID governance" || exit 1
+assert_skill_contains "prefer additive growth over renumbering|resolve collisions at merge time by choosing the next available ID" "Mentions additive ID governance"
 
 echo ""
 echo "Test 12: Output language follows user..."

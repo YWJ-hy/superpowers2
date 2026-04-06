@@ -213,10 +213,12 @@ Done!
 - Review checkpoints automatic
 
 **Efficiency gains:**
-- No file reading overhead (controller provides full task text and packet excerpts)
+- No file reading overhead (controller provides full task text and any available packet excerpts)
 - Controller curates exactly what context is needed
 - Subagent gets complete information upfront without loading the full standards corpus
 - Subagent should not be expected to resolve IDs or discover excerpts from corpus files on its own
+- If the corpus is still an empty template shell, the controller passes IDs without inventing missing excerpts
+- Inline excerpts are optional context, not a guaranteed property of every packet
 - Questions surfaced before work begins (not after)
 
 **Quality gates:**

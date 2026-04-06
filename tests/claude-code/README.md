@@ -108,8 +108,9 @@ Tests the bootstrap skill (~3-4 minutes):
 - Flexible topic-file placement plus `README.md` / `index.md` anchors
 - Existing-corpus mode only fills already-existing `.md` files
 - Unmatched findings are skipped instead of creating new topic files
-- Missing-corpus mode offers built-in template suites from the repo-root corpora before analysis
+- Missing-corpus mode offers built-in template structure from the repo-root corpora before analysis
 - Install-only flow stops after copying the selected templates
+- Empty topic shells are valid template output before initialization
 - Partial existing/missing corpus states are handled independently
 - Additive stable-ID guidance for concurrent maintainers
 
@@ -120,7 +121,7 @@ Tests the execution skill (~3-4 minutes):
 - Skill loading and accessibility
 - Review ordering and review loops
 - Task packet context provision
-- Inline standards/project-note excerpts
+- Inline standards/project-note excerpts when available
 - No subagent-side corpus resolution or hidden parser assumption
 
 #### test-subagent-driven-development-integration.sh

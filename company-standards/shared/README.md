@@ -50,8 +50,8 @@ Do not put here:
 
 Use `SH-*`.
 
-Examples:
-- `SH-TEST-001`
-- `SH-ARCH-001`
-- `SH-SEC-001`
-- `SH-ROLL-001`
+Example ID families:
+- `SH-TEST-*`
+- `SH-ARCH-*`
+- `SH-SEC-*`
+- `SH-ROLL-*`

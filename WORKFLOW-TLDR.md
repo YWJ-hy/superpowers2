@@ -118,11 +118,11 @@ flowchart TD
 - implementer / reviewer 不拿整库
 - 只拿当前任务相关：
   - spec sections
-  - standards excerpts
-  - project note excerpts
+  - standards excerpts（如果可用）
+  - project note excerpts（如果可用）
   - constraints
   - acceptance checks
-- 这些 excerpts 是在 plan / task packet 阶段按 stable ID 复制进去的，不是靠 subagent 运行时自己去解析整库
+- 这些 excerpts 是在 plan / task packet 阶段按 stable ID 复制进去的；如果 corpus 还没初始化，就不应凭空虚构 excerpt，更不是靠 subagent 运行时自己去解析整库
 
 这就是渐进式披露：
 - 不一次性灌全部信息
@@ -179,7 +179,7 @@ docs/superpowers/plans/
 ```
 
 然后：
-- 先补少量 seed rules
+- 先补少量 初始规则内容
 - 从第一个 feature 开始走完整 workflow
 
 ---

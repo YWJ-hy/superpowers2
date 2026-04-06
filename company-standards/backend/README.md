@@ -49,8 +49,8 @@ Those belong in `project-playbook/`.
 
 Use `BE-*`.
 
-Examples:
-- `BE-API-001`
-- `BE-SVC-002`
-- `BE-DATA-001`
-- `BE-TEST-001`
+Example ID families:
+- `BE-API-*`
+- `BE-SVC-*`
+- `BE-DATA-*`
+- `BE-TEST-*`
