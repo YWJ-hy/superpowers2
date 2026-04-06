@@ -15,6 +15,12 @@ These corpora are long-lived sources of engineering guidance that can be referen
 - `backend/` — backend-specific standards
 - `shared/` — cross-domain standards used by multiple parts of the stack
 
+Each corpus or domain should keep:
+- `README.md` as the local purpose / authoring guide
+- `index.md` as the quick lookup for stable rule IDs
+
+Beyond those anchor files, topic markdown files are flexible. Files such as `components.md`, `hooks.md`, or `testing.md` are recommended groupings, not a hard-coded required set.
+
 ## Current v1 status
 
 In v1, `frontend/` is the primary seeded corpus.
@@ -79,10 +85,15 @@ Each rule should be a stable card with:
 - bad example
 - reviewer checklist
 
+The rule card is the unit that later specs, plans, and task packets cite. A topic file may contain multiple rule cards; this framework does not require one file per rule.
+
 ## Governance
 
 - Treat standards changes as code-reviewed PRs
 - Prefer additive edits over renumbering
+- Do not renumber existing rules just to make sequences prettier
+- Do not reuse old IDs for new meanings
 - Deprecate before removing widely used rules
 - Keep examples concise and realistic
 - Keep domain-specific rules inside the right corpus
+- In multi-maintainer workflows, resolve new-number collisions at merge time by choosing the next available ID; optional range reservations are fine if a team truly needs them

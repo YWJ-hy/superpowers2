@@ -91,6 +91,16 @@ flowchart TD
 
 ---
 
+## corpus 组织原则
+
+- `README.md` / `index.md` 是各 corpus / domain 的稳定锚点
+- `components.md` / `hooks.md` / `pitfalls.md` 这类只是推荐分组，不是硬编码白名单
+- 稳定 ID 绑定的是 rule / note card，不是文件名
+- 一个 topic 文件里可以放多条 card，不要求 one-file-per-rule
+- 多人维护时优先追加，不为编号整齐而 renumber
+
+---
+
 ## 渐进式披露是怎么做的
 
 核心原则：
@@ -112,10 +122,12 @@ flowchart TD
   - project note excerpts
   - constraints
   - acceptance checks
+- 这些 excerpts 是在 plan / task packet 阶段按 stable ID 复制进去的，不是靠 subagent 运行时自己去解析整库
 
 这就是渐进式披露：
 - 不一次性灌全部信息
 - 只在当前步骤暴露当前需要的知识
+- 当前框架默认没有隐藏的 runtime parser 自动按 ID 切 markdown
 
 ---
 

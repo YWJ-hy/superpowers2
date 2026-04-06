@@ -94,6 +94,7 @@ digraph brainstorming {
 - Cover: architecture, components, data flow, error handling, testing
 - After the core design, map the feature to the relevant standards corpus and project-playbook notes
 - Present standards and project-note mappings as IDs plus one-line summaries first; only expand full rule/note text if needed
+- Treat those IDs as references to stable rule/note cards in the corpora, not as filenames or one-file-per-rule assumptions
 - Be ready to go back and clarify if something doesn't make sense
 
 **Design for isolation and clarity:**

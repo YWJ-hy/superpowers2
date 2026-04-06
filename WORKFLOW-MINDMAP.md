@@ -200,7 +200,9 @@ flowchart LR
 
 也就是：
 - controller 会读完整 spec / plan
+- controller 会按 stable IDs 找到相关 rule / note cards，并把 exact excerpts 复制进 task packet
 - 但 implementer / reviewer 只拿到当前任务需要的部分
+- 当前框架默认没有隐藏的 runtime parser 让 subagent 自己去 resolve IDs 或扫描整库
 
 #### task packet 里会携带
 - Goal
@@ -216,6 +218,7 @@ flowchart LR
 - 整个 `docs/company-standards/`
 - 整个 `docs/project-playbook/`
 - 整份 feature spec 的所有细节
+- 一个“自己去找所有相关规则”的开放式检索任务
 
 而是：
 - 当前任务相关的摘录
@@ -269,9 +272,11 @@ flowchart LR
 
 1. **standards 有稳定 ID**
 2. **project notes 有稳定 ID**
-3. **feature spec 有 Applicable 映射**
-4. **plan 有 task packets**
-5. **execution 有 spec review + code-quality review**
+3. **稳定 ID 绑定的是 card，不是文件名**
+4. **corpus 用 `README.md` / `index.md` 作为锚点，topic 文件可按需要扩展**
+5. **feature spec 有 Applicable 映射**
+6. **plan 有 task packets**
+7. **execution 有 spec review + code-quality review**
 
 这让系统在收尾时可以判断：
 - 这是通用规则吗？
@@ -324,7 +329,14 @@ flowchart TD
     F --> G
 ```
 
-### 4.5 为什么这是“复利”
+### 4.5 多人维护时为什么稳定 ID 仍然成立
+
+- 规则 / note 的主身份是 stable ID，不是文件名
+- 一个 topic 文件可以包含多条 card，因此文档重组不必破坏引用
+- 日常维护优先 additive edits，不为“编号更整齐”而 renumber
+- 并发新增时，如果撞号，merge 时选择下一个可用 ID 即可；必要时团队可自行约定号段
+
+### 4.6 为什么这是“复利”
 
 因为这套框架不是只完成一次任务，而是在每次任务完成后都多做一步：
 
@@ -342,7 +354,7 @@ flowchart TD
 
 ---
 
-## 4.6 GitHub 展示版：为什么这个框架比普通文档体系更强
+## 4.7 GitHub 展示版：为什么这个框架比普通文档体系更强
 
 普通文档体系的问题是：
 - 文档写完后很容易脱离实际执行
@@ -364,7 +376,7 @@ flowchart TD
 
 ---
 
-## 4.7 现有项目接入流程图
+## 4.8 现有项目接入流程图
 
 ```mermaid
 flowchart TD
@@ -389,7 +401,7 @@ flowchart TD
 
 ---
 
-## 4.8 新项目初始化流程图
+## 4.9 新项目初始化流程图
 
 ```mermaid
 flowchart TD
@@ -416,7 +428,7 @@ flowchart TD
 
 ---
 
-## 4.9 角色视角：每一类参与者看到什么
+## 4.10 角色视角：每一类参与者看到什么
 
 ### A. 人类 / 使用者视角
 人类在这套流程里看到的是：

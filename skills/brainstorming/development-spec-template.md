@@ -24,6 +24,8 @@ Use this template when a feature needs progressive disclosure and explicit mappi
 
 ## S6 Applicable Standards
 
+Use stable rule IDs that point to cards in the standards corpus. The spec contract is the ID plus summary, not a filename, and one file may contain multiple rule cards.
+
 ### Required
 - `<rule-id>` <one-line summary>
 
@@ -34,6 +36,8 @@ Use this template when a feature needs progressive disclosure and explicit mappi
 - `<rule-id>` <reason it does not apply>
 
 ## S7 Applicable Project Notes
+
+Use stable note IDs that point to repo-local note cards. Keep filenames out of the contract here too.
 - `<note-id>` <one-line summary>
 
 ## S8 Risks / Open Questions

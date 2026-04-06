@@ -30,12 +30,18 @@ These files are the **default repo-local source** for the frontend domain in v1.
 
 ## File map
 
+Anchor files:
+- `README.md` — local purpose / authoring guide
 - `index.md` — quick lookup for rule IDs
+
+Common v1 topic files:
 - `components.md` — component decomposition and prop-surface rules
 - `hooks.md` — hooks, effects, and async workflow rules
 - `state.md` — state ownership rules
 - `testing.md` — testing rules
 - `CHANGELOG.md` — material corpus changes over time
+
+These are recommended groupings, not a required taxonomy. Add other topic markdown files when the corpus needs a clearer split, but keep `README.md` and `index.md` as stable anchors.
 
 ## Authoring rules
 

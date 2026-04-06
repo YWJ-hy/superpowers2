@@ -216,6 +216,7 @@ Done!
 - No file reading overhead (controller provides full task text and packet excerpts)
 - Controller curates exactly what context is needed
 - Subagent gets complete information upfront without loading the full standards corpus
+- Subagent should not be expected to resolve IDs or discover excerpts from corpus files on its own
 - Questions surfaced before work begins (not after)
 
 **Quality gates:**

@@ -105,8 +105,18 @@ Tests the bootstrap skill (~3-4 minutes):
 - Company standards vs project playbook classification logic
 - Evidence-first candidate requirements
 - Candidate-first confirmation gate
+- Flexible topic-file placement plus `README.md` / `index.md` anchors
+- Additive stable-ID guidance for concurrent maintainers
 
 ### Integration Tests (use --integration flag)
+
+#### test-subagent-driven-development.sh
+Tests the execution skill (~3-4 minutes):
+- Skill loading and accessibility
+- Review ordering and review loops
+- Task packet context provision
+- Inline standards/project-note excerpts
+- No subagent-side corpus resolution or hidden parser assumption
 
 #### test-subagent-driven-development-integration.sh
 Full workflow execution test (~10-30 minutes):
@@ -136,6 +146,7 @@ Full workflow execution test (~10-30 minutes):
 3. Write tests using `run_claude` and assertions
 4. Add to test list in `run-skill-tests.sh`
 5. Make executable: `chmod +x test-<skill-name>.sh`
+6. Prefer assertions on structural expectations (IDs, excerpts, anchors, confirmation gates) over brittle exact wording
 
 ## Timeout Considerations
 

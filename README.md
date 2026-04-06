@@ -301,6 +301,11 @@ docs/project-playbook/
   legacy-constraints.md
 ```
 
+其中：
+- `README.md` / `index.md` 是稳定锚点
+- `pitfalls.md` / `patterns.md` / `legacy-constraints.md` 是默认起步分组，不是唯一合法文件名
+- 需要时可以增加其他 topic `.md` 文件，但要同步维护锚点
+
 建议先整理：
 - 10~20 条高价值坑点
 - 历史遗留限制
@@ -326,6 +331,12 @@ docs/company-standards/backend/
 docs/company-standards/shared/
 ```
 
+每个 domain corpus 都建议保留：
+- `README.md` 作为本地说明 / authoring guide
+- `index.md` 作为稳定 ID 快速索引
+
+除此之外的 topic `.md` 文件可以按需要扩展；像 `components.md`、`hooks.md`、`testing.md` 这类名字是推荐分组，不是硬编码约束。
+
 #### 5. 先选一个真实 feature 做试点
 不要一上来全项目切换。
 
@@ -339,6 +350,7 @@ docs/company-standards/shared/
 - standards IDs 是否足够清晰
 - project-note excerpts 是否足够实用
 - task packets 是否能有效减少上下文污染
+- agent 是否只消费当前任务相关的 excerpts，而不是被动读取整库
 
 #### 6. 用 compound step 逐步反哺知识库
 每次做完一个真实任务，不要只停在“功能完成”。
@@ -349,6 +361,12 @@ docs/company-standards/shared/
 - 哪些只是 feature-specific
 
 这样框架会越用越强。
+
+补充约束：
+- 稳定 ID 绑定的是 rule / note card，不是文件名
+- 一个 topic 文件里可以包含多条 card，不要求 one-file-per-rule
+- 当前渐进式披露是 prompt-driven / packet-driven：spec 记录 IDs，plan 复制 exact excerpts，execution 只传相关摘录；默认没有隐藏的 runtime parser 自动按 ID 切 markdown
+- 多人维护时优先追加，不要为了编号整齐而 renumber；必要时允许保留空号或在团队内约定号段
 
 ### 现有项目接入的最小落地版本
 

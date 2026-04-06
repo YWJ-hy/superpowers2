@@ -133,12 +133,13 @@ git commit -m "feat: add specific feature"
 
 When the spec maps the work to a standards corpus or a repo-local project-notes corpus:
 - Copy exact rule IDs and note IDs into each relevant task
-- Include only the excerpts needed for that task
+- Read the cited corpus cards and paste the exact excerpts needed for that task
 - Prefer direct excerpts over loose paraphrases
+- Do not assume one file per rule or note; the relevant card may live in any topic file under the right corpus
 - If a rule or note does **not** apply, keep it out of the task packet
 - If a task needs many rules or notes, the task is probably too large and should be split
 
-Think of each task as a compact execution packet: goal, files, spec sections, relevant standards, relevant project notes, constraints, acceptance checks, and verification.
+Think of each task as a compact execution packet: goal, files, spec sections, relevant standards, relevant project notes, constraints, acceptance checks, and verification. The stable ID is the reference key; the copied excerpt is the execution payload. There is no hidden resolver step later in the workflow.
 
 ## No Placeholders
 

@@ -142,10 +142,13 @@ For each candidate, include:
 - proposed title
 - proposed ID family
 - destination corpus
+- proposed topic file (existing or new) inside that corpus
 - applies when
 - evidence paths
 - why this belongs here
 - draft card fields needed by the target corpus
+
+Topic files inside a corpus are flexible groupings. `README.md` and `index.md` remain the anchor files; if a new topic file is proposed, note that the related anchors should also be updated.
 
 ## Confirmation Gate
 
@@ -158,6 +161,8 @@ Default workflow:
 Do **not** write directly into `docs/company-standards/` or `docs/project-playbook/` by default.
 
 If the user explicitly wants direct writes, still keep the evidence and classification visible before making changes.
+
+When assigning new IDs, prefer additive growth over renumbering. Do not reshuffle existing IDs just to make numbering prettier. In multi-maintainer workflows, resolve collisions at merge time by choosing the next available ID; optional range reservations are acceptable if a team truly needs them.
 
 ## Guardrails
 

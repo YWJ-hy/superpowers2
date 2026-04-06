@@ -14,14 +14,19 @@ Use this corpus for long-lived backend guidance such as:
 
 ## Typical structure
 
-Suggested files:
-- `index.md`
+Anchor files:
+- `README.md` — local purpose / authoring guide
+- `index.md` — quick lookup for stable rule IDs
+
+Suggested topic files:
 - `api.md`
 - `services.md`
 - `data-access.md`
 - `jobs.md`
 - `observability.md`
 - `testing.md`
+
+These topic files are examples, not a fixed required list. Add other markdown files when they improve grouping, but keep `README.md` and `index.md` as stable anchors.
 
 ## What belongs here
 
