@@ -8,7 +8,7 @@
     {
       "name": "superpower2-compound-plugin",
       "description": "Company workflow framework for Claude Code with standards corpora, project playbooks, progressive disclosure, and compound engineering",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "source": "./",
       "author": {
         "name": "Superpower2 Team"
