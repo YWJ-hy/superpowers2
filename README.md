@@ -112,7 +112,24 @@ skills/compound-engineering/SKILL.md
   - Add to Project Playbook
   - Keep in Feature Spec / Plan Only
 
-### 7. 为未来 private overlay 预留扩展点
+### 7. 新增 codifying-compound-candidates skill
+新增：
+
+```text
+skills/codifying-compound-candidates/SKILL.md
+```
+
+作用：
+- 接收 `compound-engineering` 产出的 `Compound Candidates`，或用户直接提供的可复用经验
+- 只把选中的内容落到**已有**的 `docs/company-standards/` 或 `docs/project-playbook/` topic 文件中
+- 不把 `Keep in Feature Spec / Plan Only` 的内容错误提升为长期知识
+- 不私自新建新的 topic 文件，而是优先复用现有知识库结构
+
+也就是说：
+- `compound-engineering` 负责“提出候选项”
+- `codifying-compound-candidates` 负责“把选中的候选项真正写回知识库”
+
+### 8. 为未来 private overlay 预留扩展点
 当前 v1 默认使用 repo-local corpora：
 - `docs/company-standards/...`
 - `docs/project-playbook/...`
@@ -202,6 +219,27 @@ docs/
 - implementer 只拿任务相关上下文
 - spec reviewer 先审 requirements / standards / project notes
 - code-quality reviewer 再审结构与实现质量
+
+#### worktree 共享目录配置
+如果执行阶段使用 `using-git-worktrees`，项目可以在根目录下放置 `.superpowers/config.json`，控制新 worktree 是否把某些目录直接链接到主仓库，而不是在每个 worktree 中复制或重新安装。
+
+最常见场景是共享 `node_modules`：
+
+```json
+{
+  "symlinkDirectories": ["node_modules"],
+  "runSetupAfterSymlink": false
+}
+```
+
+字段说明：
+- `symlinkDirectories`：要链接到新 worktree 的目录，路径相对项目根目录
+- `runSetupAfterSymlink`：建链后是否继续执行原有 setup；不写时保持原本逻辑，设为 `false` 时跳过 setup
+
+说明：
+- 适合 `node_modules` 这类体积大、重复复制成本高的目录
+- Windows 上允许使用 directory junction 作为目录链接实现
+- 若仍执行 setup，安装命令可能改写共享目录
 
 ### Step 4: Compound Engineering
 完成后，用 `compound-engineering` 做经验分流：

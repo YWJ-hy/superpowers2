@@ -156,6 +156,27 @@ flowchart LR
 4. 通过后进入下一任务
 5. 最后做全局收尾
 
+#### worktree 共享目录配置
+如果执行阶段使用 `using-git-worktrees`，项目可以在根目录放置 `.superpowers/config.json`，控制新 worktree 是否把某些目录直接链接到主仓库。
+
+最常见场景是共享 `node_modules`：
+
+```json
+{
+  "symlinkDirectories": ["node_modules"],
+  "runSetupAfterSymlink": false
+}
+```
+
+含义：
+- `symlinkDirectories`：把这些相对项目根目录的目录链接到新 worktree
+- `runSetupAfterSymlink`：建链后是否继续执行原有 setup；不写时保持原本逻辑，设为 `false` 时跳过 setup
+
+补充说明：
+- 适合 `node_modules` 这类体积大、重复复制成本高的目录
+- Windows 上允许使用 directory junction 作为目录链接实现
+- 若仍执行 setup，安装命令可能改写共享目录
+
 ### Step 4：Compound
 目标：把这次真实工作中的经验转化为可复用知识。
 
@@ -324,10 +345,19 @@ flowchart TD
     C --> D[Promote to Company Standards]
     C --> E[Add to Project Playbook]
     C --> F[Keep in Feature Spec / Plan Only]
-    D --> G[后续人工确认并回写]
+    D --> G[codifying-compound-candidates 回写已有知识库文件]
     E --> G
-    F --> G
+    F --> H[保留在当前 feature，不进入长期知识库]
 ```
+
+这里需要区分两个 skill：
+- `compound-engineering` 负责产出 `Compound Candidates`
+- `codifying-compound-candidates` 负责把被选中的候选项写回已有的 `docs/company-standards/` 或 `docs/project-playbook/` topic 文件
+
+约束：
+- 只应 codify `Promote to Company Standards` 与 `Add to Project Playbook`
+- 不应 codify `Keep in Feature Spec / Plan Only`
+- 默认复用已有 topic 文件，而不是随意新建文件
 
 ### 4.5 多人维护时为什么稳定 ID 仍然成立
 
@@ -398,6 +428,7 @@ flowchart TD
 - 先补最常用的 standards
 - 先用一个真实 feature 验证整条链路
 - 通过 compound 逐步反哺知识库，而不是一次性设计完所有规则
+- 如果需要把 `Compound Candidates` 真正落库，应继续使用 `codifying-compound-candidates`，而不是把候选输出误当成已经完成回写
 
 ---
 
@@ -425,6 +456,7 @@ flowchart TD
 - 只需要少量初始规则内容，甚至先保留空壳模板，也可以启动
 - project playbook 从第一天就应该存在
 - 从第一个 feature 开始就走统一 workflow
+- 当 workflow 输出 `Compound Candidates` 后，如需正式沉淀进长期知识库，应通过 `codifying-compound-candidates` 写回已有 topic 文件
 
 ---
 

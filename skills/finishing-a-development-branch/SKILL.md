@@ -147,6 +147,8 @@ If yes:
 git worktree remove <worktree-path>
 ```
 
+If the worktree contains directories linked via `.superpowers/config.json` `symlinkDirectories`, cleanup only removes the worktree entry points. Do not modify or delete the real directories in the main repository.
+
 **For Option 3:** Keep worktree.
 
 ## Quick Reference

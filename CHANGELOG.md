@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- **Worktree linking config**: `using-git-worktrees` now documents project-level `.superpowers/config.json` support for `symlinkDirectories` and `runSetupAfterSymlink`. This allows linking directories such as `node_modules` from the main repository into new worktrees, with an explicit switch controlling whether setup should still run afterward. Windows may use directory junctions for linked directories.
+
 ## [5.0.5] - 2026-03-17
 
 ### Fixed

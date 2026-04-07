@@ -87,6 +87,18 @@ BRANCH=$(git branch --show-current)
 See `using-git-worktrees` Step 0 and `finishing-a-development-branch`
 Step 1 for how each skill uses these signals.
 
+## Project Worktree Linking Config
+
+`using-git-worktrees` may also read project-local worktree settings from
+`.superpowers/config.json` at the repository root.
+
+Supported fields:
+- `symlinkDirectories` — repo-root-relative directory paths to link into each new worktree
+- `runSetupAfterSymlink` — whether to continue with the normal setup step after links are created; if omitted, keep the original setup behavior
+
+On macOS/Linux, linked directories should be directory symlinks. On Windows,
+a directory junction is acceptable when it is more reliable than a true symlink.
+
 ## Codex App Finishing
 
 When the sandbox blocks branch/push operations (detached HEAD in an

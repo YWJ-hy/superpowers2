@@ -50,6 +50,26 @@ subagent 按任务包执行。
 - spec reviewer
 - code-quality reviewer
 
+#### worktree 共享目录配置
+如果执行阶段使用 `using-git-worktrees`，项目可以在根目录下放置 `.superpowers/config.json` 来控制新 worktree 的目录链接行为。
+
+最常见场景是把 `node_modules` 链接到主仓库，避免每个 worktree 都复制或重新安装一份。
+
+示例：
+
+```json
+{
+  "symlinkDirectories": ["node_modules"],
+  "runSetupAfterSymlink": false
+}
+```
+
+含义：
+- `symlinkDirectories`：把这些相对项目根目录的目录链接到新 worktree
+- `runSetupAfterSymlink`：建链后是否继续执行原有 setup；不写时保持原本逻辑，设为 `false` 时跳过 setup
+
+Windows 上允许使用 directory junction 作为目录链接实现。
+
 ### 4. Compound
 工作做完后，不直接结束，而是输出：
 - 哪些经验应进入 company standards
@@ -138,6 +158,11 @@ flowchart TD
 当前 v1 的自动 compound 是：
 - workflow 收尾时自动要求输出 `Compound Candidates`
 - 自动把这次工作中的经验做初步分类
+
+如果要把这些候选项真正写回知识库，需要继续使用 `codifying-compound-candidates`：
+- 它会把选中的候选项落到已有的 `docs/company-standards/` 或 `docs/project-playbook/` 文件里
+- 它不会把 `Keep in Feature Spec / Plan Only` 的内容强行提升为长期规则
+- 它默认复用现有 topic 文件，而不是随意新建新文件
 
 分类结果只有三类：
 - **Promote to Company Standards**

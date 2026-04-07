@@ -77,7 +77,8 @@ No .gitignore verification needed - outside project entirely.
 ### 1. Detect Project Name
 
 ```bash
-project=$(basename "$(git rev-parse --show-toplevel)")
+repo_root=$(git rev-parse --show-toplevel)
+project=$(basename "$repo_root")
 ```
 
 ### 2. Create Worktree
@@ -98,7 +99,48 @@ git worktree add "$path" -b "$BRANCH_NAME"
 cd "$path"
 ```
 
-### 3. Run Project Setup
+### 3. Apply Optional Directory Links
+
+If the project defines `.superpowers/config.json`, read it from the main repository root captured above:
+
+```bash
+config_file="$repo_root/.superpowers/config.json"
+```
+
+Supported fields:
+
+```json
+{
+  "symlinkDirectories": ["node_modules"],
+  "runSetupAfterSymlink": false
+}
+```
+
+Rules:
+- `symlinkDirectories` is optional and defaults to `[]`
+- `runSetupAfterSymlink` is optional; if omitted, keep the original setup behavior
+- Each `symlinkDirectories` entry must be a non-empty repo-root-relative directory path
+- Do not allow absolute paths, `~`, globs, environment-variable expansion, files, or paths that escape the repo via `..`
+- The source path must already exist in the main repository and must be a directory
+- The worktree target path must be the same relative path inside the worktree
+
+Apply each entry after `git worktree add` and before any setup commands:
+- If the worktree target does not exist, create parent directories and link it to the main repository directory
+- If the worktree target already exists and already points at the correct source directory, treat that as success and continue
+- If the worktree target exists but is a regular directory/file or points somewhere else, stop and report the conflict
+
+Platform rules:
+- On macOS/Linux, create a directory symlink
+- On Windows, a directory junction is acceptable and preferred when it is more reliable than a true symlink
+
+Setup control:
+- If `runSetupAfterSymlink` is `false`, skip the setup step below after links are applied and go straight to baseline verification
+- If `runSetupAfterSymlink` is `true` or omitted, continue with the original setup step
+- If `node_modules` is linked and setup still runs, explicitly note that install commands may mutate the shared main-repository directory
+
+If `.superpowers/config.json` is missing, skip directory linking and continue normally. If the file exists but is invalid, or contains an invalid `symlinkDirectories` entry, stop and report the exact issue before running setup or tests.
+
+### 4. Run Project Setup
 
 Auto-detect and run appropriate setup:
 
@@ -117,7 +159,7 @@ if [ -f pyproject.toml ]; then poetry install; fi
 if [ -f go.mod ]; then go mod download; fi
 ```
 
-### 4. Verify Clean Baseline
+### 5. Verify Clean Baseline
 
 Run tests to ensure worktree starts clean:
 
@@ -133,10 +175,12 @@ go test ./...
 
 **If tests pass:** Report ready.
 
-### 5. Report Location
+### 6. Report Location
 
 ```
 Worktree ready at <full-path>
+Linked directories: <list or none>
+Setup run: <yes/no>
 Tests passing (<N> tests, 0 failures)
 Ready to implement <feature-name>
 ```
@@ -150,6 +194,10 @@ Ready to implement <feature-name>
 | Both exist | Use `.worktrees/` |
 | Neither exists | Check CLAUDE.md → Ask user |
 | Directory not ignored | Add to .gitignore + commit |
+| `.superpowers/config.json` missing | Skip directory linking |
+| `.superpowers/config.json` invalid | Stop and report the config error |
+| `symlinkDirectories` configured | Link each directory before setup |
+| `runSetupAfterSymlink: false` | Skip setup, go to baseline tests |
 | Tests fail during baseline | Report failures + ask |
 | No package.json/Cargo.toml | Skip dependency install |
 
@@ -175,6 +223,11 @@ Ready to implement <feature-name>
 - **Problem:** Breaks on projects using different tools
 - **Fix:** Auto-detect from project files (package.json, etc.)
 
+### Running setup after linking shared directories without checking config
+
+- **Problem:** Setup may mutate a shared directory like main-repo `node_modules`
+- **Fix:** Respect `runSetupAfterSymlink`; when omitted, keep original behavior and warn if setup may touch a shared directory
+
 ## Example Workflow
 
 ```
@@ -183,10 +236,14 @@ You: I'm using the using-git-worktrees skill to set up an isolated workspace.
 [Check .worktrees/ - exists]
 [Verify ignored - git check-ignore confirms .worktrees/ is ignored]
 [Create worktree: git worktree add .worktrees/auth -b feature/auth]
-[Run npm install]
+[Read .superpowers/config.json]
+[Link node_modules from main repository]
+[runSetupAfterSymlink=false, so skip npm install]
 [Run npm test - 47 passing]
 
 Worktree ready at /Users/jesse/myproject/.worktrees/auth
+Linked directories: node_modules
+Setup run: no
 Tests passing (47 tests, 0 failures)
 Ready to implement auth feature
 ```
@@ -199,19 +256,22 @@ Ready to implement auth feature
 - Proceed with failing tests without asking
 - Assume directory location when ambiguous
 - Skip CLAUDE.md check
+- Overwrite an existing worktree path that conflicts with a configured linked directory
+- Treat an invalid `.superpowers/config.json` as a warning and continue anyway
 
 **Always:**
 - Follow directory priority: existing > CLAUDE.md > ask
 - Verify directory is ignored for project-local
-- Auto-detect and run project setup
+- Apply configured directory links before setup
+- Respect `runSetupAfterSymlink` when deciding whether to run setup
 - Verify clean test baseline
 
 ## Integration
 
 **Called by:**
 - **brainstorming** (Phase 4) - REQUIRED when design is approved and implementation follows
-- **subagent-driven-development** - REQUIRED before executing any tasks
-- **executing-plans** - REQUIRED before executing any tasks
+- **subagent-driven-development** - REQUIRED: Ensures isolated workspace is ready (creates one or verifies existing, then applies any configured directory links before setup)
+- **executing-plans** - REQUIRED: Ensures isolated workspace is ready (creates one or verifies existing, then applies any configured directory links before setup)
 - Any skill needing isolated workspace
 
 **Pairs with:**
