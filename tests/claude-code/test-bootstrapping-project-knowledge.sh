@@ -34,14 +34,14 @@ assert_markdown_exists_under() {
 }
 
 
-echo "Test 0: Repo-root corpora exist, topic shells are empty, and duplicate suites are gone..."
-assert_markdown_exists_under "$REPO_ROOT/company-standards" "Company standards corpus files exist"
-assert_markdown_exists_under "$REPO_ROOT/project-playbook" "Project playbook corpus files exist"
-if grep -R "## FE-\|## BE-\|## SH-\|## PRJ-" "$REPO_ROOT/company-standards" "$REPO_ROOT/project-playbook" >/dev/null 2>&1; then
+echo "Test 0: Docs corpora exist, topic shells are empty, and duplicate suites are gone..."
+assert_markdown_exists_under "$REPO_ROOT/docs/company-standards" "Company standards corpus files exist"
+assert_markdown_exists_under "$REPO_ROOT/docs/project-playbook" "Project playbook corpus files exist"
+if grep -R "## FE-\|## BE-\|## SH-\|## PRJ-" "$REPO_ROOT/docs/company-standards" "$REPO_ROOT/docs/project-playbook" >/dev/null 2>&1; then
     echo "  [FAIL] Seeded rule or note entries still exist in template topics"
     exit 1
 else
-    echo "  [PASS] Repo-root topic files are empty shells"
+    echo "  [PASS] Docs topic files are empty shells"
 fi
 if find "$REPO_ROOT/skills/bootstrapping-project-knowledge/template-suites" -name "*.md" -print -quit 2>/dev/null | grep -q .; then
     echo "  [FAIL] Duplicate template suite markdown still exists"
@@ -53,7 +53,7 @@ fi
 echo ""
 echo "Test 1: Skill loading..."
 assert_skill_contains "# Bootstrapping Project Knowledge" "Skill is recognized"
-assert_skill_contains "company-standards/|project-playbook/" "Mentions corpus targets"
+assert_skill_contains "docs/company-standards/|docs/project-playbook/" "Mentions docs corpus targets"
 
 echo ""
 echo "Test 2: Classification logic..."
@@ -68,7 +68,7 @@ assert_skill_contains "repeated patterns in multiple files|explicit repo docs or
 echo ""
 echo "Test 4: Confirmation gate..."
 assert_skill_contains "produce candidate report|ask for confirmation|only then write or update corpus files" "Mentions candidate/review flow"
-assert_skill_contains 'Do \*\*not\*\* write directly into `company-standards/` or `project-playbook/` by default' "Requires confirmation before writes"
+assert_skill_contains 'Do \*\*not\*\* write directly into `docs/company-standards/` or `docs/project-playbook/` by default' "Requires confirmation before writes"
 
 echo ""
 echo "Test 5: Skill text locks missing-corpus suite boundaries..."

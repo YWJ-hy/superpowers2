@@ -23,7 +23,7 @@ Beyond those anchor files, topic markdown files are flexible. Files such as `com
 
 ## Current v1 status
 
-In v1, the repo-root corpora act as template structure and anchor files.
+In v1, the corpora under `docs/` act as template structure and anchor files.
 The framework is intentionally designed so additional corpora can be added without changing the workflow model.
 
 That means:
@@ -54,7 +54,7 @@ Do not put these here:
 - temporary migration notes
 
 Those belong in:
-- `project-playbook/` for repo-specific knowledge
+- `docs/project-playbook/` for repo-specific knowledge
 - `docs/superpowers/specs/` for feature-specific design
 - `docs/superpowers/plans/` for execution details
 

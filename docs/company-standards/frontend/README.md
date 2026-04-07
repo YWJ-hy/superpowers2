@@ -1,7 +1,7 @@
 # Frontend Standards Corpus
 
-This directory is the frontend domain corpus under `company-standards/`.
-In v1 it serves as a repo-root template structure for this fork's progressive-disclosure workflow.
+This directory is the frontend domain corpus under `docs/company-standards/`.
+In v1 it serves as the template structure under `docs/` for this fork's progressive-disclosure workflow.
 
 ## Purpose
 
@@ -13,7 +13,7 @@ Use this corpus for organization-level frontend rules that should apply across m
 
 This corpus is one domain-specific part of the broader company standards framework, which can also include backend and shared standards.
 
-These files are the **default repo-root template structure** for the frontend domain in v1. The workflow should still talk about a *standards corpus* rather than hard-coding this path too deeply, so future backend/shared corpora or a private overlay can be introduced without rewriting the entire skill chain.
+These files are the **default template structure under `docs/`** for the frontend domain in v1. The workflow should still talk about a *standards corpus* rather than hard-coding this path too deeply, so future backend/shared corpora or a private overlay can be introduced without rewriting the entire skill chain.
 
 ## How the workflow uses this corpus
 

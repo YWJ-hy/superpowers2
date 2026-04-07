@@ -9,11 +9,11 @@ description: Use when onboarding an existing repository into this framework and 
 
 Use this skill to cold-start the framework on an existing codebase.
 
-The repo-root corpora may begin as structure-only templates with empty topic files. That is a valid starting state.
+The corpora under `docs/` may begin as structure-only templates with empty topic files. That is a valid starting state.
 
 The goal is not to dump vague best practices into repo docs. The goal is to scan the project, extract high-signal engineering knowledge, and sort each finding into the right long-lived corpus:
-- `company-standards/` for reusable organization-level rules
-- `project-playbook/` for repo-specific pitfalls, patterns, and legacy constraints
+- `docs/company-standards/` for reusable organization-level rules
+- `docs/project-playbook/` for repo-specific pitfalls, patterns, and legacy constraints
 
 Default behavior: **produce candidates first, then wait for confirmation before writing corpus files.**
 
@@ -29,7 +29,7 @@ Follow the user's language when writing the bootstrap report and candidate conte
 
 Use this when:
 - a team wants to adopt this workflow in an existing repository
-- `company-standards` and `project-playbook` are missing, thin, or outdated
+- `docs/company-standards/` and `docs/project-playbook/` are missing, thin, or outdated
 - the user asks you to analyze an existing project and fill in standards / playbook content
 - you need to turn repeated repo evidence into stable IDs that later specs and plans can cite
 
@@ -52,8 +52,8 @@ Every candidate must cite evidence.
 ## Corpus Discovery and Template Suite Flow
 
 Before bootstrapping, inspect whether the project already has these corpus directories:
-- `company-standards/`
-- `project-playbook/`
+- `docs/company-standards/`
+- `docs/project-playbook/`
 
 Treat the two corpora independently.
 
@@ -79,7 +79,7 @@ In this mode, the skill should adapt to the user's existing topic grouping inste
 This is also a hard rule: do **not** scaffold an empty corpus directory tree on your own.
 
 Tell the user which corpus directory is missing, then:
-1. show the available built-in template suites under `<corpus>/` at the repo root
+1. show the available built-in template suites under `<corpus>/` under `docs/`
 2. let the user choose a suite
 3. ask whether to:
    - copy/install the suite only
@@ -87,11 +87,11 @@ Tell the user which corpus directory is missing, then:
 
 If the user declines analysis/filling, only perform the requested template install/copy step and stop. Empty topic files after install are expected in template mode, and no further evidence analysis or inferred content generation should happen.
 
-If the user approves analysis/filling, only analyze/fill files that come from the selected suite in the repo-root corpus. In template mode this is how the first real entries get written into otherwise empty topic files. Do **not** add extra topic files beyond the chosen suite.
+If the user approves analysis/filling, only analyze/fill files that come from the selected suite in the corpus under `docs/`. In template mode this is how the first real entries get written into otherwise empty topic files. Do **not** add extra topic files beyond the chosen suite.
 
 Do **not** replace this flow with “create empty folders first” or “create a minimal scaffold first.” The built-in template suite selection step comes first.
 
-When explaining this branch, explicitly say that the user chooses a built-in template suite from the repo-root corpus before any copying, scaffolding, analysis, or filling happens.
+When explaining this branch, explicitly say that the user chooses a built-in template suite from the corpus under `docs/` before any copying, scaffolding, analysis, or filling happens.
 
 ### Mixed corpus state
 
@@ -139,7 +139,7 @@ digraph bootstrap_flow {
 
 ### Candidate Company Standards
 
-Put a finding in `company-standards/` only if it is:
+Put a finding in `docs/company-standards/` only if it is:
 - reusable across multiple features or projects
 - stable enough to remain useful over time
 - broader than one repository quirk or one migration
@@ -152,7 +152,7 @@ Then choose the right ID family:
 
 ### Candidate Project Playbook Notes
 
-Put a finding in `project-playbook/` only if it is tied to this repository, such as:
+Put a finding in `docs/project-playbook/` only if it is tied to this repository, such as:
 - integration-specific traps
 - local patterns proven useful in this codebase
 - legacy constraints
@@ -217,7 +217,7 @@ For each candidate, include:
 
 In existing-corpus mode, the proposed topic file must be an already-existing `.md` file in that corpus. If no existing file fits, skip the finding entirely instead of proposing a new file or a deferred destination choice.
 
-In missing-corpus mode, proposed writes must stay within the files provided by the user-selected built-in template suite from the repo-root corpus.
+In missing-corpus mode, proposed writes must stay within the files provided by the user-selected built-in template suite from the corpus under `docs/`.
 
 Topic files inside a corpus are flexible groupings. `README.md` and `index.md` remain the anchor files. However, when the corpus already exists, adapt to its current file grouping and never introduce or propose new topic files.
 
@@ -231,7 +231,7 @@ Default workflow:
 5. ask for confirmation
 6. only then write or update corpus files and indexes
 
-Do **not** write directly into `company-standards/` or `project-playbook/` by default.
+Do **not** write directly into `docs/company-standards/` or `docs/project-playbook/` by default.
 
 If the user explicitly wants direct writes, still keep the evidence and classification visible before making changes.
 
@@ -264,4 +264,4 @@ The output of this skill should feed the rest of the workflow:
 
 A good request for this skill looks like:
 
-> Analyze this existing project and propose candidate `company-standards` and `project-playbook` entries. First check whether `company-standards/` and `project-playbook/` already exist. If a corpus already exists, only use its existing `.md` files and skip findings that do not fit them. If either corpus is missing, offer built-in template suites before analysis. Show evidence and wait for confirmation before writing corpus files.
+> Analyze this existing project and propose candidate entries for `docs/company-standards/` and `docs/project-playbook/`. First check whether `docs/company-standards/` and `docs/project-playbook/` already exist. If a corpus already exists, only use its existing `.md` files and skip findings that do not fit them. If either corpus is missing, offer built-in template suites before analysis. Show evidence and wait for confirmation before writing corpus files.

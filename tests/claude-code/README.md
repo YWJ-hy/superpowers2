@@ -108,7 +108,7 @@ Tests the bootstrap skill (~3-4 minutes):
 - Flexible topic-file placement plus `README.md` / `index.md` anchors
 - Existing-corpus mode only fills already-existing `.md` files
 - Unmatched findings are skipped instead of creating new topic files
-- Missing-corpus mode offers built-in template structure from the repo-root corpora before analysis
+- Missing-corpus mode offers built-in template structure from the corpora under `docs/` before analysis
 - Install-only flow stops after copying the selected templates
 - Empty topic shells are valid template output before initialization
 - Partial existing/missing corpus states are handled independently

@@ -154,8 +154,8 @@ flowchart TD
 
 最小做法：
 
-1. 建 `project-playbook/`
-2. 建相关的 `company-standards/<domain>/`
+1. 建 `docs/project-playbook/`
+2. 建相关的 `docs/company-standards/<domain>/`
 3. 选一个真实 feature 试跑完整流程
 4. 用 compound 结果回写知识库
 
@@ -168,12 +168,12 @@ flowchart TD
 最小结构：
 
 ```text
-company-standards/
+docs/company-standards/
   frontend/
   backend/
   shared/
 
-project-playbook/
+docs/project-playbook/
 docs/superpowers/specs/
 docs/superpowers/plans/
 ```
