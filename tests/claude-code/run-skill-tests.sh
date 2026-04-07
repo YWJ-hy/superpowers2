@@ -78,6 +78,7 @@ done
 tests=(
     "test-subagent-driven-development.sh"
     "test-compound-engineering.sh"
+    "test-codifying-compound-candidates.sh"
     "test-bootstrapping-project-knowledge.sh"
 )
 

@@ -50,6 +50,13 @@ At the end of the work, produce:
 - <one-off lesson that should not be promoted>
 ```
 
+This block may be handed off to `codifying-compound-candidates` as a follow-up step.
+That follow-up skill should only codify entries under:
+- `Promote to Company Standards`
+- `Add to Project Playbook`
+
+Entries under `Keep in Feature Spec / Plan Only` should remain out of corpus codification.
+
 Do **not** auto-edit the corpora as part of this step. Suggest the right destination, then let the human or a follow-up task decide whether to codify it.
 
 ## Red Flags

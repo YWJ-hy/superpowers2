@@ -98,6 +98,16 @@ Tests the orchestration skill (~2 minutes):
 - Skill loading and accessibility
 - Compound candidates output
 - Standards vs project-playbook corpus separation
+- Codify handoff boundaries and no-auto-edit guarantee
+
+#### test-codifying-compound-candidates.sh
+Tests the codification skill (~2-3 minutes):
+- Skill loading and accessibility
+- Direct vs compound-engineering intake modes
+- Existing-topic-only write constraints
+- Feature-only bucket exclusion
+- Candidate-first confirmation gate
+- Rule/note card shape expectations
 
 #### test-bootstrapping-project-knowledge.sh
 Tests the bootstrap skill (~3-4 minutes):
